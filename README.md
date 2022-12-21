@@ -1,5 +1,7 @@
 # Multi-Chart Svelte Example
 
+Proof of concept multichart data tool using randomly generated data. Based on [this Observable notebook](https://observablehq.com/d/c5955832413ea211)
+
 ## TODO
 
 - make transitions "svelty"
