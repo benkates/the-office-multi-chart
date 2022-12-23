@@ -57,6 +57,7 @@
           width={(xScale(d.count) - margin.left) * $tweenedRect}
           height={yScale.bandwidth()}
           fill={colorScale(d.name)}
+          opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
           on:focus={(e) => {
             tooltip.mouseOver(e);
             hoveredData = d;
@@ -66,9 +67,23 @@
             hoveredData = d;
           }}
           on:mousemove={tooltip.mouseMove}
-          on:mouseleave={tooltip.mouseLeave}
+          on:mouseleave={(e) => {
+            tooltip.mouseLeave(e);
+            hoveredData = null;
+          }}
+          on:blur={(e) => {
+            tooltip.mouseLeave(e);
+            hoveredData = null;
+          }}
         />
       {/each}
     </g>
   </svg>
 </div>
+
+<style>
+  rect {
+    transition: r 300ms ease, opacity 500ms ease;
+    cursor: pointer;
+  }
+</style>

@@ -1,5 +1,6 @@
 <script>
   import { format } from "d3";
+  import { fly } from "svelte/transition";
   export let data;
   export let x;
   export let y;
@@ -21,7 +22,7 @@
 </script>
 
 {#if data && isHovered}
-  <div class="tooltip{id}" style="top: {y}px; left: {x}px;">
+  <div id="tooltip{id}" style="top: {y}px; left: {x}px;" transition:fly>
     <span><strong>{data.name}</strong></span>
     <br />
     <span>Count: {data.count}</span>
@@ -33,7 +34,7 @@
 {/if}
 
 <style>
-  [class^="tooltip"] {
+  [id^="tooltip"] {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
       Helvetica, Arial, sans-serif, "Apple   Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol";

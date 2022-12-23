@@ -56,27 +56,6 @@
       {xFullScale}
       {yScale}
     />
-    <g id="posGroup">
-      {#each catData as d}
-        <rect
-          x={width / 2 + margin.left / 2 - margin.right / 2}
-          y={yScale(d.name)}
-          width={xPosScale(d.pos) * $tweenedRect}
-          height={yScale.bandwidth()}
-          fill={"darkblue"}
-          on:focus={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mouseover={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mousemove={tooltip.mouseMove}
-          on:mouseleave={tooltip.mouseLeave}
-        />
-      {/each}
-    </g>
     <g id="negGroup">
       {#each catData as d}
         <rect
@@ -88,6 +67,7 @@
           width={xNegScale(d.neg) * $tweenedRect}
           height={yScale.bandwidth()}
           fill={"red"}
+          opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
           on:focus={(e) => {
             tooltip.mouseOver(e);
             hoveredData = d;
@@ -97,9 +77,52 @@
             hoveredData = d;
           }}
           on:mousemove={tooltip.mouseMove}
-          on:mouseleave={tooltip.mouseLeave}
+          on:mouseleave={(e) => {
+            tooltip.mouseLeave(e);
+            hoveredData = null;
+          }}
+          on:blur={(e) => {
+            tooltip.mouseLeave(e);
+            hoveredData = null;
+          }}
+        />
+      {/each}
+    </g>
+    <g id="posGroup">
+      {#each catData as d}
+        <rect
+          x={width / 2 + margin.left / 2 - margin.right / 2}
+          y={yScale(d.name)}
+          width={xPosScale(d.pos) * $tweenedRect}
+          height={yScale.bandwidth()}
+          fill={"darkblue"}
+          opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
+          on:focus={(e) => {
+            tooltip.mouseOver(e);
+            hoveredData = d;
+          }}
+          on:mouseover={(e) => {
+            tooltip.mouseOver(e);
+            hoveredData = d;
+          }}
+          on:mousemove={tooltip.mouseMove}
+          on:mouseleave={(e) => {
+            tooltip.mouseLeave(e);
+            hoveredData = null;
+          }}
+          on:blur={(e) => {
+            tooltip.mouseLeave(e);
+            hoveredData = null;
+          }}
         />
       {/each}
     </g>
   </svg>
 </div>
+
+<style>
+  rect {
+    transition: r 300ms ease, opacity 500ms ease;
+    cursor: pointer;
+  }
+</style>
