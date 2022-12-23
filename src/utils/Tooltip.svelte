@@ -3,10 +3,11 @@
   export let data;
   export let x;
   export let y;
+  export let id;
 </script>
 
 {#if data}
-  <div class="tooltip2" style="top: {y - 200}px; left: {x - 200}px;">
+  <div class="tooltip{id}" style="top: {y}px; left: {x}px;">
     <span><strong>{data.name}</strong></span>
     <br />
     <span>Count: {data.count}</span>
@@ -18,7 +19,7 @@
 {/if}
 
 <style>
-  .tooltip2 {
+  [class^="tooltip"] {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
       Helvetica, Arial, sans-serif, "Apple   Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol";
@@ -27,7 +28,7 @@
     border: 1px solid #ddd;
     box-shadow: 1px 1px 1px #ddd;
     color: #fff;
-    display: block;
+    /* display: block; */
     font-size: 12px;
     padding: 0.2rem 0.4rem;
     position: absolute;

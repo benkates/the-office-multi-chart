@@ -45,12 +45,12 @@
   let isHovered, x, y;
   const mouseOver = (e) => {
     isHovered = true;
-    x = e.pageX;
-    y = e.pageY;
+    x = e.layerX + 10;
+    y = e.layerY + 10;
   };
   const mouseMove = (e) => {
-    x = e.pageX;
-    y = e.pageY;
+    x = e.layerX + 10;
+    y = e.layerY + 10;
   };
   const mouseLeave = () => {
     isHovered = false;
@@ -59,7 +59,7 @@
 
 <div bind:clientWidth={width}>
   {#if isHovered}
-    <Tooltip data={hoveredData} {x} {y} />
+    <Tooltip data={hoveredData} {x} {y} id="1" />
   {/if}
   <svg {width} {height}>
     <CatCountChartAxis {catData} {width} {height} {margin} {xScale} {yScale} />
@@ -71,7 +71,10 @@
           width={(xScale(d.count) - margin.left) * $tweenedRect}
           height={yScale.bandwidth()}
           fill={colorScale(d.name)}
-          on:focus={() => console.log()}
+          on:focus={(e) => {
+            mouseOver(e);
+            hoveredData = d;
+          }}
           on:mouseover={(e) => {
             mouseOver(e);
             hoveredData = d;

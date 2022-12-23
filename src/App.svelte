@@ -1,6 +1,6 @@
 <script>
   import { schemeCategory10 } from "d3"; //shows as not used, see <style>
-  import PosNegChart from "./lib/PosNegChart2.svelte";
+  import PosNegChart from "./lib/PosNegChart.svelte";
   import CatCountChart from "./lib/CatCountChart.svelte";
   import { margin } from "./utils/dims";
   import { catData, networkData } from "./utils/data";
