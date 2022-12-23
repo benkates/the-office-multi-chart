@@ -4,9 +4,23 @@
   export let x;
   export let y;
   export let id;
+  export let isHovered;
+
+  export function mouseOver(e) {
+    isHovered = true;
+    x = e.layerX + 10;
+    y = e.layerY + 10;
+  }
+  export function mouseMove(e) {
+    x = e.layerX + 10;
+    y = e.layerY + 10;
+  }
+  export function mouseLeave() {
+    isHovered = false;
+  }
 </script>
 
-{#if data}
+{#if data && isHovered}
   <div class="tooltip{id}" style="top: {y}px; left: {x}px;">
     <span><strong>{data.name}</strong></span>
     <br />

@@ -42,25 +42,11 @@
   tweenedRect.set(1);
 
   //setup tooltip funs
-  let isHovered, x, y;
-  const mouseOver = (e) => {
-    isHovered = true;
-    x = e.layerX + 10;
-    y = e.layerY + 10;
-  };
-  const mouseMove = (e) => {
-    x = e.layerX + 10;
-    y = e.layerY + 10;
-  };
-  const mouseLeave = () => {
-    isHovered = false;
-  };
+  let tooltip, isHovered, x, y;
 </script>
 
 <div bind:clientWidth={width}>
-  {#if isHovered}
-    <Tooltip data={hoveredData} {x} {y} id="1" />
-  {/if}
+  <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="2" {isHovered} />
   <svg {width} {height}>
     <CatCountChartAxis {catData} {width} {height} {margin} {xScale} {yScale} />
     <g id="posGroup">
@@ -72,15 +58,15 @@
           height={yScale.bandwidth()}
           fill={colorScale(d.name)}
           on:focus={(e) => {
-            mouseOver(e);
+            tooltip.mouseOver(e);
             hoveredData = d;
           }}
           on:mouseover={(e) => {
-            mouseOver(e);
+            tooltip.mouseOver(e);
             hoveredData = d;
           }}
-          on:mouseleave={mouseLeave}
-          on:mousemove={mouseMove}
+          on:mousemove={tooltip.mouseMove}
+          on:mouseleave={tooltip.mouseLeave}
         />
       {/each}
     </g>
