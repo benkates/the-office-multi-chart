@@ -22,7 +22,11 @@
 </script>
 
 {#if data && isHovered}
-  <div id="tooltip{id}" style="top: {y}px; left: {x}px;" transition:fly>
+  <div
+    id="tooltip{id}"
+    style="top: {y}px; left: {x}px;"
+    transition:fly={{ y: 50, duration: 250 }}
+  >
     <span><strong>{data.name}</strong></span>
     <br />
     <span>Count: {data.count}</span>

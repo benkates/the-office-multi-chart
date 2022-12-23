@@ -96,7 +96,7 @@
           width={xPosScale(d.pos) * $tweenedRect}
           height={yScale.bandwidth()}
           fill={"darkblue"}
-          opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
+          opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
           on:focus={(e) => {
             tooltip.mouseOver(e);
             hoveredData = d;
@@ -121,8 +121,9 @@
 </div>
 
 <style>
+  /* control opacity change */
   rect {
-    transition: r 300ms ease, opacity 500ms ease;
+    transition: opacity 500ms ease;
     cursor: pointer;
   }
 </style>

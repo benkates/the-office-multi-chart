@@ -57,7 +57,7 @@
           width={(xScale(d.count) - margin.left) * $tweenedRect}
           height={yScale.bandwidth()}
           fill={colorScale(d.name)}
-          opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
+          opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
           on:focus={(e) => {
             tooltip.mouseOver(e);
             hoveredData = d;
@@ -68,11 +68,11 @@
           }}
           on:mousemove={tooltip.mouseMove}
           on:mouseleave={(e) => {
-            tooltip.mouseLeave(e);
+            tooltip.mouseLeave();
             hoveredData = null;
           }}
           on:blur={(e) => {
-            tooltip.mouseLeave(e);
+            tooltip.mouseLeave();
             hoveredData = null;
           }}
         />
@@ -83,7 +83,8 @@
 
 <style>
   rect {
-    transition: r 300ms ease, opacity 500ms ease;
+    /* control opacity transition */
+    transition: opacity 500ms ease;
     cursor: pointer;
   }
 </style>
