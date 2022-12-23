@@ -1,26 +1,28 @@
 <script>
   import { schemeCategory10, max } from "d3";
   import { scaleLinear, scaleBand, scaleOrdinal } from "d3-scale";
-  import { select } from "d3-selection";
-  import { axisBottom, axisLeft } from "d3-axis";
 
-  import { tooltipFun, tooltipGen } from "../utils/tooltip";
-  import { onMount } from "svelte";
+  import CatCountChartAxis from "./CatCountChartAxis.svelte";
 
-  export let width;
-  export let height;
+  import Tooltip from "../utils/Tooltip.svelte";
+
+  import { tweened } from "svelte/motion";
+  import * as easings from "svelte/easing";
+
   export let margin;
   export let catData;
 
-  let svg;
+  let hoveredData;
+  let width = 400;
+  let height = 400;
 
   //setup x positive scale
-  const xScale = scaleLinear()
+  $: xScale = scaleLinear()
     .domain([0, max(catData, (d) => d.count)])
     .rangeRound([margin.left, width - margin.right]);
 
   //setup y scale
-  const yScale = scaleBand()
+  $: yScale = scaleBand()
     .domain(catData.map((e) => e.name))
     .rangeRound([margin.top, height - margin.bottom])
     .paddingInner(0.25);
@@ -31,58 +33,53 @@
     schemeCategory10
   );
 
-  //setup x axis
-  const xAxis = (g) =>
-    g
-      .attr("transform", `translate(0,${height - margin.bottom})`)
-      //call axisBottom and styling
-      .call(axisBottom(xScale).tickSize(-height))
-      //remove bottom line
-      .call((g) => g.select(".domain").remove())
-      .attr("font-size", "12")
-      .attr("color", "grey")
-      .selectAll("line")
-      .attr("color", "lightgrey");
-
-  //binned axis
-  const yAxis = (g) =>
-    g
-      .attr("transform", `translate(${margin.left},0)`)
-      .call(axisLeft(yScale).tickSize(-width))
-      .call((g) => g.select(".domain").remove())
-      .attr("font-size", "14")
-      .attr("color", "grey")
-      .selectAll("line")
-      .attr("color", "lightgrey");
-
-  //define tooltip
-  const tooltip = tooltipGen();
-
-  //create svg container
-  //   const svg = create("svg").attr("viewBox", [0, 0, width, height]);
-  onMount(() => {
-    svg = select(svg).append("g");
-    //add axes
-    svg.append("g").call(xAxis);
-    svg.append("g").call(yAxis);
-
-    //categorical bars
-    svg
-      .append("g")
-      .attr("id", "posGroup")
-      .selectAll("rect")
-      .data(catData)
-      .join("rect")
-      .attr("x", (d) => xScale(0))
-      .attr("y", (d) => yScale(d.name))
-      .attr("width", (d) => 0)
-      .attr("height", yScale.bandwidth())
-      .attr("fill", (d) => colorScale(d.name))
-      .call(tooltipFun, tooltip)
-      .transition()
-      .duration(1500)
-      .attr("width", (d) => xScale(d.count) - margin.left);
+  //tween animation
+  const tweenedRect = tweened(0, {
+    delay: 0,
+    duration: 1250,
+    easing: easings.cubicOut,
   });
+  tweenedRect.set(1);
+
+  //setup tooltip funs
+  let isHovered, x, y;
+  let mouseOver = (e) => {
+    isHovered = true;
+    x = e.pageX;
+    y = e.pageY;
+  };
+  let mouseMove = (e) => {
+    x = e.pageX;
+    y = e.pageY;
+  };
+  let mouseLeave = () => {
+    isHovered = false;
+  };
 </script>
 
-<svg {height} {width} bind:this={svg} />
+<div bind:clientWidth={width}>
+  {#if isHovered}
+    <Tooltip data={hoveredData} {x} {y} />
+  {/if}
+  <svg {width} {height}>
+    <CatCountChartAxis {catData} {width} {height} {margin} {xScale} {yScale} />
+    <g id="posGroup">
+      {#each catData as d}
+        <rect
+          x={xScale(0)}
+          y={yScale(d.name)}
+          width={(xScale(d.count) - margin.left) * $tweenedRect}
+          height={yScale.bandwidth()}
+          fill={colorScale(d.name)}
+          on:focus={() => console.log()}
+          on:mouseover={(e) => {
+            mouseOver(e);
+            hoveredData = d;
+          }}
+          on:mouseleave={mouseLeave}
+          on:mousemove={mouseMove}
+        />
+      {/each}
+    </g>
+  </svg>
+</div>

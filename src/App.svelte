@@ -1,7 +1,7 @@
 <script>
   import { schemeCategory10 } from "d3"; //shows as not used, see <style>
   import PosNegChart from "./lib/PosNegChart.svelte";
-  import CatCountChart from "./lib/CatCountChart2.svelte";
+  import CatCountChart from "./lib/CatCountChart.svelte";
   import { margin } from "./utils/dims";
   import { catData, networkData } from "./utils/data";
   import ForceChart from "./lib/ForceChart.svelte";
