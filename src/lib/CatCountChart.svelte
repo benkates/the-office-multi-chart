@@ -4,7 +4,7 @@
   import { select } from "d3-selection";
   import { axisBottom, axisLeft } from "d3-axis";
 
-  import { tooltipFun, tooltipGen } from "./utils/tooltip";
+  import { tooltipFun, tooltipGen } from "../utils/tooltip";
   import { onMount } from "svelte";
 
   export let width;
@@ -39,7 +39,7 @@
       .call(axisBottom(xScale).tickSize(-height))
       //remove bottom line
       .call((g) => g.select(".domain").remove())
-      .attr("font-size", "10")
+      .attr("font-size", "12")
       .attr("color", "grey")
       .selectAll("line")
       .attr("color", "lightgrey");
@@ -50,7 +50,7 @@
       .attr("transform", `translate(${margin.left},0)`)
       .call(axisLeft(yScale).tickSize(-width))
       .call((g) => g.select(".domain").remove())
-      .attr("font-size", "10")
+      .attr("font-size", "14")
       .attr("color", "grey")
       .selectAll("line")
       .attr("color", "lightgrey");
@@ -85,4 +85,4 @@
   });
 </script>
 
-<svg {height} {width} viewBox={`0 0 ${width} ${height}`} bind:this={svg} />
+<svg {height} {width} bind:this={svg} />

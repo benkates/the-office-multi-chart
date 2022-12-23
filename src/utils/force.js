@@ -1,5 +1,6 @@
-function clickFun(el, networkData, marker) {
+export function clickFun(el, networkData, marker) {
   //split words into an array
+  // @ts-ignore
   let words = document.querySelector("#text-container").innerText.split(" ");
   el.on("click", (d, i) => {
     //get the group ID for the selected node
@@ -21,5 +22,3 @@ function clickFun(el, networkData, marker) {
     });
   });
 }
-
-export { clickFun };

@@ -1,10 +1,8 @@
-const width = 680;
-const height = 400;
 const margin = {
-  top: width * 0.025,
-  right: height * 0.075,
-  bottom: height * 0.075,
-  left: width * 0.1,
+  top: 5,
+  right: 40,
+  bottom: 40,
+  left: 80,
 };
 
-export { width, height, margin };
+export { margin };

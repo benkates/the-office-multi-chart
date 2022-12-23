@@ -3,7 +3,7 @@
   import { select } from "d3-selection";
   import { scaleOrdinal } from "d3-scale";
   import { onMount } from "svelte";
-  import { clickFun } from "./utils/force";
+  import { clickFun } from "../utils/force";
   import {
     forceManyBody,
     forceLink,
@@ -137,11 +137,6 @@
   });
 </script>
 
-<svg
-  {height}
-  {width}
-  viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}
-  bind:this={svg}
-/>
+<svg {height} {width} viewBox={`0 0 ${height} ${width}`} bind:this={svg} />
 
 <!-- style="max-width: 100%; height: auto; height: intrinsic" -->
