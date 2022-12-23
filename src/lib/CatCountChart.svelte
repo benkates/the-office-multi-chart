@@ -43,16 +43,16 @@
 
   //setup tooltip funs
   let isHovered, x, y;
-  let mouseOver = (e) => {
+  const mouseOver = (e) => {
     isHovered = true;
     x = e.pageX;
     y = e.pageY;
   };
-  let mouseMove = (e) => {
+  const mouseMove = (e) => {
     x = e.pageX;
     y = e.pageY;
   };
-  let mouseLeave = () => {
+  const mouseLeave = () => {
     isHovered = false;
   };
 </script>

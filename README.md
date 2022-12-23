@@ -8,6 +8,7 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 - [ ] add an interaction for the bar charts
 - [ ] use [iconify for UI](https://www.youtube.com/watch?v=iGVhzsTZSa8)
 - [ ] check out the skeleton UI (uses tailwind CSS)
+- [ ] convert margin to function that accepts w/h and multiples by percentage
 - [x] make SVG render "svelty"
 - [x] make transitions "svelty"
 - [x] [UI framework (MUI for now)](https://sveltematerialui.com/)
