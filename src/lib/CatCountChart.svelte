@@ -3,18 +3,20 @@
   import { scaleLinear, scaleBand, scaleOrdinal } from "d3-scale";
 
   import CatCountChartAxis from "./CatCountChartAxis.svelte";
+  import marginFun from "../utils/margin";
 
   import Tooltip from "../utils/Tooltip.svelte";
 
   import { tweened } from "svelte/motion";
   import * as easings from "svelte/easing";
 
-  export let margin;
   export let catData;
 
   let hoveredData;
   let width = 400;
   let height = 400;
+
+  let margin = marginFun(width, height);
 
   //setup x positive scale
   $: xScale = scaleLinear()

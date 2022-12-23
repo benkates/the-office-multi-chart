@@ -2,7 +2,6 @@
   import { schemeCategory10 } from "d3"; //shows as not used, see <style>
   import PosNegChart from "./lib/PosNegChart.svelte";
   import CatCountChart from "./lib/CatCountChart.svelte";
-  import { margin } from "./utils/dims";
   import { catData, networkData } from "./utils/data";
   import ForceChart from "./lib/ForceChart.svelte";
   import mark from "mark.js";
@@ -46,7 +45,7 @@
             ></CardHeader
           >
           <CardBody>
-            <CatCountChart {margin} {catData} />
+            <CatCountChart {catData} />
           </CardBody>
         </Card>
       </Col>
@@ -58,7 +57,7 @@
             >
           </CardHeader>
           <CardBody>
-            <PosNegChart {margin} {catData} />
+            <PosNegChart {catData} />
           </CardBody>
         </Card>
       </Col>

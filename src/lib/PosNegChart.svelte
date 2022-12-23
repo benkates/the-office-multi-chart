@@ -2,16 +2,17 @@
   import { scaleLinear, scaleBand } from "d3-scale";
   import PosNegChartAxis from "./PosNegChartAxis.svelte";
   import Tooltip from "../utils/Tooltip.svelte";
+  import marginFun from "../utils/margin";
 
   import { tweened } from "svelte/motion";
   import * as easings from "svelte/easing";
 
-  export let margin;
   export let catData;
 
   let hoveredData;
   let width = 400;
   let height = 400;
+  let margin = marginFun(width, height);
 
   //setup x positive scale
   $: xPosScale = scaleLinear()
