@@ -17,6 +17,9 @@
     CardTitle,
   } from "sveltestrap";
 
+  import OnMount from "./utils/OnMount.svelte";
+  import { fade } from "svelte/transition";
+
   import "iconify-icon";
 
   let style = schemeCategory10
@@ -65,7 +68,7 @@
           <CardHeader>
             <CardTitle
               ><iconify-icon inline icon="ic:sharp-sentiment-very-satisfied" />
-              What does sentiment look like?
+              What does <strong>sentiment</strong> look like?
               <span class="inline-label" style="background:red;">negative</span>
               vs.
               <span class="inline-label" style="background:darkblue;"
@@ -111,7 +114,11 @@
             ></CardHeader
           >
           <CardBody id="text-container">
-            {@html fullText}
+            <OnMount>
+              <div transition:fade={{ duration: 1250 }}>
+                {@html fullText}
+              </div>
+            </OnMount>
           </CardBody>
         </Card>
       </Col>

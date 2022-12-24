@@ -8,6 +8,9 @@
   import * as easings from "svelte/easing";
   import { clickFun } from "../utils/clickFun";
 
+  import { fade } from "svelte/transition";
+  import OnMount from "../utils/OnMount.svelte";
+
   export let catData;
   export let marker;
 
@@ -49,91 +52,100 @@
   let tooltip, isHovered, x, y;
 </script>
 
-<div bind:clientWidth={width}>
-  <!-- tooltip -->
-  <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="2" {isHovered} />
-  <!-- svg -->
-  <svg {height} {width}>
-    <!-- axis -->
-    <PosNegChartAxis
-      {catData}
-      {width}
-      {height}
-      {margin}
-      {xFullScale}
-      {yScale}
+<OnMount>
+  <div bind:clientWidth={width} transition:fade={{ duration: 1250 }}>
+    <!-- tooltip -->
+    <Tooltip
+      bind:this={tooltip}
+      data={hoveredData}
+      {x}
+      {y}
+      id="2"
+      {isHovered}
     />
-    <!-- negative rect group -->
-    <g id="negGroup">
-      {#each catData as d, i}
-        <rect
-          x={width / 2 +
-            margin.left / 2 -
-            margin.right / 2 -
-            xNegScale(d.neg) * $tweenedRect}
-          y={yScale(d.name)}
-          width={xNegScale(d.neg) * $tweenedRect}
-          height={yScale.bandwidth()}
-          fill={"red"}
-          opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
-          data-value={i}
-          on:focus={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mouseover={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mousemove={tooltip.mouseMove}
-          on:mouseleave={(e) => {
-            tooltip.mouseLeave(e);
-            hoveredData = null;
-          }}
-          on:blur={(e) => {
-            tooltip.mouseLeave(e);
-            hoveredData = null;
-          }}
-          on:keydown={(e) => clickFun(e, marker)}
-          on:click={(e) => clickFun(e, marker)}
-        />
-      {/each}
-    </g>
-    <!-- positive rect group -->
-    <g id="posGroup">
-      {#each catData as d, i}
-        <rect
-          x={width / 2 + margin.left / 2 - margin.right / 2}
-          y={yScale(d.name)}
-          width={xPosScale(d.pos) * $tweenedRect}
-          height={yScale.bandwidth()}
-          fill={"darkblue"}
-          opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
-          data-value={i}
-          on:focus={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mouseover={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mousemove={tooltip.mouseMove}
-          on:mouseleave={(e) => {
-            tooltip.mouseLeave(e);
-            hoveredData = null;
-          }}
-          on:blur={(e) => {
-            tooltip.mouseLeave(e);
-            hoveredData = null;
-          }}
-          on:keydown={(e) => clickFun(e, marker)}
-          on:click={(e) => clickFun(e, marker)}
-        />
-      {/each}
-    </g>
-  </svg>
-</div>
+    <!-- svg -->
+    <svg {height} {width}>
+      <!-- axis -->
+      <PosNegChartAxis
+        {catData}
+        {width}
+        {height}
+        {margin}
+        {xFullScale}
+        {yScale}
+      />
+      <!-- negative rect group -->
+      <g id="negGroup">
+        {#each catData as d, i}
+          <rect
+            x={width / 2 +
+              margin.left / 2 -
+              margin.right / 2 -
+              xNegScale(d.neg) * $tweenedRect}
+            y={yScale(d.name)}
+            width={xNegScale(d.neg) * $tweenedRect}
+            height={yScale.bandwidth()}
+            fill={"red"}
+            opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
+            data-value={i}
+            on:focus={(e) => {
+              tooltip.mouseOver(e);
+              hoveredData = d;
+            }}
+            on:mouseover={(e) => {
+              tooltip.mouseOver(e);
+              hoveredData = d;
+            }}
+            on:mousemove={tooltip.mouseMove}
+            on:mouseleave={(e) => {
+              tooltip.mouseLeave(e);
+              hoveredData = null;
+            }}
+            on:blur={(e) => {
+              tooltip.mouseLeave(e);
+              hoveredData = null;
+            }}
+            on:keydown={(e) => clickFun(e, marker)}
+            on:click={(e) => clickFun(e, marker)}
+          />
+        {/each}
+      </g>
+      <!-- positive rect group -->
+      <g id="posGroup">
+        {#each catData as d, i}
+          <rect
+            x={width / 2 + margin.left / 2 - margin.right / 2}
+            y={yScale(d.name)}
+            width={xPosScale(d.pos) * $tweenedRect}
+            height={yScale.bandwidth()}
+            fill={"darkblue"}
+            opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
+            data-value={i}
+            on:focus={(e) => {
+              tooltip.mouseOver(e);
+              hoveredData = d;
+            }}
+            on:mouseover={(e) => {
+              tooltip.mouseOver(e);
+              hoveredData = d;
+            }}
+            on:mousemove={tooltip.mouseMove}
+            on:mouseleave={(e) => {
+              tooltip.mouseLeave(e);
+              hoveredData = null;
+            }}
+            on:blur={(e) => {
+              tooltip.mouseLeave(e);
+              hoveredData = null;
+            }}
+            on:keydown={(e) => clickFun(e, marker)}
+            on:click={(e) => clickFun(e, marker)}
+          />
+        {/each}
+      </g>
+    </svg>
+  </div>
+</OnMount>
 
 <style>
   /* control opacity change */

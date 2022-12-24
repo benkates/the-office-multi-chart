@@ -11,6 +11,9 @@
   import * as easings from "svelte/easing";
   import { clickFun } from "../utils/clickFun";
 
+  import { fade } from "svelte/transition";
+  import OnMount from "../utils/OnMount.svelte";
+
   export let catData;
   export let marker;
 
@@ -49,49 +52,65 @@
   let tooltip, isHovered, x, y;
 </script>
 
-<div bind:clientWidth={width}>
-  <!--tooltip-->
-  <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="2" {isHovered} />
+<OnMount>
+  <div bind:clientWidth={width} transition:fade={{ duration: 1250 }}>
+    <!--tooltip-->
+    <Tooltip
+      bind:this={tooltip}
+      data={hoveredData}
+      {x}
+      {y}
+      id="2"
+      {isHovered}
+    />
 
-  <!--svg-->
-  <svg {width} {height}>
-    <!--axis-->
-    <CatCountChartAxis {catData} {width} {height} {margin} {xScale} {yScale} />
-    <!--category rect group-->
-    <g id="catGroup">
-      {#each catData as d, i}
-        <rect
-          x={xScale(0)}
-          y={yScale(d.name)}
-          width={(xScale(d.count) - margin.left) * $tweenedRect}
-          height={yScale.bandwidth()}
-          fill={colorScale(d.name)}
-          opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
-          data-value={i}
-          on:focus={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mouseover={(e) => {
-            tooltip.mouseOver(e);
-            hoveredData = d;
-          }}
-          on:mousemove={tooltip.mouseMove}
-          on:mouseleave={(e) => {
-            tooltip.mouseLeave();
-            hoveredData = null;
-          }}
-          on:blur={(e) => {
-            tooltip.mouseLeave();
-            hoveredData = null;
-          }}
-          on:keydown={(e) => clickFun(e, marker)}
-          on:click={(e) => clickFun(e, marker)}
-        />
-      {/each}
-    </g>
-  </svg>
-</div>
+    <!--svg-->
+    <svg {width} {height}>
+      <!--axis-->
+      <CatCountChartAxis
+        {catData}
+        {width}
+        {height}
+        {margin}
+        {xScale}
+        {yScale}
+      />
+      <!--category rect group-->
+      <g id="catGroup">
+        {#each catData as d, i}
+          <rect
+            x={xScale(0)}
+            y={yScale(d.name)}
+            width={(xScale(d.count) - margin.left) * $tweenedRect}
+            height={yScale.bandwidth()}
+            fill={colorScale(d.name)}
+            opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
+            data-value={i}
+            on:focus={(e) => {
+              tooltip.mouseOver(e);
+              hoveredData = d;
+            }}
+            on:mouseover={(e) => {
+              tooltip.mouseOver(e);
+              hoveredData = d;
+            }}
+            on:mousemove={tooltip.mouseMove}
+            on:mouseleave={(e) => {
+              tooltip.mouseLeave();
+              hoveredData = null;
+            }}
+            on:blur={(e) => {
+              tooltip.mouseLeave();
+              hoveredData = null;
+            }}
+            on:keydown={(e) => clickFun(e, marker)}
+            on:click={(e) => clickFun(e, marker)}
+          />
+        {/each}
+      </g>
+    </svg>
+  </div>
+</OnMount>
 
 <style>
   rect {

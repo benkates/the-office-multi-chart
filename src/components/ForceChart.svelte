@@ -31,6 +31,9 @@
     forceCenter,
   };
 
+  import { fade } from "svelte/transition";
+  import OnMount from "../utils/OnMount.svelte";
+
   import { clickFun } from "../utils/clickFun";
   export let marker;
 
@@ -80,45 +83,47 @@
 <svelte:window on:resize={resize} />
 
 <!-- SVG was here -->
-<div bind:clientWidth={width}>
-  <svg bind:this={svg} {width} {height}>
-    {#each links as link}
-      <g stroke="#999" stroke-opacity=".75">
-        <line
-          x1={link.source.x}
-          y1={link.source.y}
-          x2={link.target.x}
-          y2={link.target.y}
-          stroke-width="1.25"
+<OnMount>
+  <div bind:clientWidth={width} transition:fade={{ duration: 1250 }}>
+    <svg bind:this={svg} {width} {height}>
+      {#each links as link}
+        <g stroke="#999" stroke-opacity=".75">
+          <line
+            x1={link.source.x}
+            y1={link.source.y}
+            x2={link.target.x}
+            y2={link.target.y}
+            stroke-width="1.25"
+            transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
+          >
+            <title>{link.source.id}</title>
+          </line>
+        </g>
+      {/each}
+
+      {#each nodes as point}
+        <circle
+          class="node"
+          r="5"
+          fill={colourScale(point.group)}
+          cx={point.x}
+          cy={point.y}
+          tabIndex="0"
+          on:click={(d) => {
+            clickFun(d, marker);
+          }}
+          on:keydown={(d) => {
+            clickFun(d, marker);
+          }}
+          data-value={point.group}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >
-          <title>{link.source.id}</title>
-        </line>
-      </g>
-    {/each}
-
-    {#each nodes as point}
-      <circle
-        class="node"
-        r="5"
-        fill={colourScale(point.group)}
-        cx={point.x}
-        cy={point.y}
-        tabIndex="0"
-        on:click={(d) => {
-          clickFun(d, marker);
-        }}
-        on:keydown={(d) => {
-          clickFun(d, marker);
-        }}
-        data-value={point.group}
-        transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
-      >
-        <title>{point.id}</title></circle
-      >
-    {/each}
-  </svg>
-</div>
+          <title>{point.id}</title></circle
+        >
+      {/each}
+    </svg>
+  </div>
+</OnMount>
 
 <style>
   svg {
