@@ -1,24 +1,24 @@
-export function clickFun(el, networkData, marker) {
+import { fullText } from "./data";
+export function clickFun(d, marker) {
   //split words into an array
   // @ts-ignore
-  let words = document.querySelector("#text-container").innerText.split(" ");
-  el.on("click", (d, i) => {
-    //get the group ID for the selected node
-    let groupId = networkData.nodes[i.id].group;
 
-    //get a random index of the array
-    let indexNum = Math.floor(Math.random() * words.length);
-    //get the actual keyword of that
-    let keyword = words[indexNum];
-    //randomly decide to add another word
-    Math.round(Math.random()) === 1
-      ? (keyword = `${keyword} ${words[indexNum + 1]}`)
-      : null;
+  let words = fullText.split(" ");
 
-    //add mark
-    marker.mark(keyword, {
-      className: `group-${groupId}`,
-      accuracy: "exactly",
-    });
+  let i = Number(d.target.attributes["data-value"].value);
+
+  //get a random index of the array
+  let indexNum = Math.floor(Math.random() * words.length);
+  //get the actual keyword of that
+  let keyword = words[indexNum];
+  //randomly decide to add another word
+  Math.round(Math.random()) === 1
+    ? (keyword = `${keyword} ${words[indexNum + 1]}`)
+    : null;
+
+  //add mark
+  marker.mark(keyword, {
+    className: `group-${i}`,
+    accuracy: "exactly",
   });
 }

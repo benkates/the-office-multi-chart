@@ -18,6 +18,7 @@
   "dependencies": {
     "bootstrap": "^5.2.3",
     "d3": "^7.7.0",
+    "iconify-icon": "^1.0.2",
     "mark.js": "^8.11.1",
     "sveltestrap": "^5.10.0"
   }

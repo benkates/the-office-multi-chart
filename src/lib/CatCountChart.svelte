@@ -9,8 +9,10 @@
 
   import { tweened } from "svelte/motion";
   import * as easings from "svelte/easing";
+  import { clickFun } from "../utils/force";
 
   export let catData;
+  export let marker;
 
   let hoveredData;
   let width = 400;
@@ -52,7 +54,7 @@
   <svg {width} {height}>
     <CatCountChartAxis {catData} {width} {height} {margin} {xScale} {yScale} />
     <g id="posGroup">
-      {#each catData as d}
+      {#each catData as d, i}
         <rect
           x={xScale(0)}
           y={yScale(d.name)}
@@ -60,6 +62,7 @@
           height={yScale.bandwidth()}
           fill={colorScale(d.name)}
           opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
+          data-value={i}
           on:focus={(e) => {
             tooltip.mouseOver(e);
             hoveredData = d;
@@ -77,6 +80,8 @@
             tooltip.mouseLeave();
             hoveredData = null;
           }}
+          on:keydown={(e) => clickFun(e, marker)}
+          on:click={(e) => clickFun(e, marker)}
         />
       {/each}
     </g>

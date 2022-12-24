@@ -1,142 +1,129 @@
+<!--
+  a lot of this code has been copied from Mark Hughes (happybeing) - cheers to you!
+
+  https://github.com/happybeing/d3-fdg-svelte/blob/master/src/NetworkGraphSvelteSVG.svelte 
+-->
 <script>
-  import { schemeCategory10, map, sort } from "d3";
-  import { select } from "d3-selection";
-  import { scaleOrdinal } from "d3-scale";
   import { onMount } from "svelte";
-  import { clickFun } from "../utils/force";
+  import { scaleLinear, scaleOrdinal } from "d3-scale";
+  import { zoom, zoomIdentity } from "d3-zoom";
+  import { schemeCategory10 } from "d3-scale-chromatic";
+  import { select, selectAll } from "d3-selection";
+  import { drag } from "d3-drag";
   import {
-    forceManyBody,
-    forceLink,
     forceSimulation,
+    forceLink,
+    forceManyBody,
     forceCenter,
   } from "d3-force";
+  let d3 = {
+    zoom,
+    zoomIdentity,
+    scaleLinear,
+    scaleOrdinal,
+    schemeCategory10,
+    select,
+    selectAll,
+    drag,
+    forceSimulation,
+    forceLink,
+    forceManyBody,
+    forceCenter,
+  };
 
-  export let width;
-  export let height;
-  export let networkData;
+  import { clickFun } from "../utils/force";
   export let marker;
 
-  // Copyright 2021 Observable, Inc.
-  // Released under the ISC license.
-  // https://observablehq.com/@d3/force-directed-graph
-
+  export let networkData;
   let svg;
-  let nodes = networkData.nodes;
-  let links = networkData.links;
-  let nodeId = (d) => d.id;
-  let nodeGroup = (d) => d.group;
-  let nodeTitle = (d) => `${d.id}\n${d.group}`;
-  let linkStrokeWidth = (l) => Math.sqrt(l.value);
-  let nodeStrength = -5;
-  let linkStrength = 1;
-  let colors = schemeCategory10;
-  let linkSource = ({ source }) => source;
-  let linkTarget = ({ target }) => target;
-  let linkStroke = "#999"; // link stroke color
-  let linkStrokeOpacity = 0.6; // link stroke opacity
-  let linkStrokeLinecap = "round"; // link stroke linecap
-  let nodeFill = "currentColor";
-  let nodeStroke = "#fff"; // node stroke color
-  let nodeStrokeWidth = 1.5; // node stroke width, in pixels
-  let nodeStrokeOpacity = 1; // node stroke opacity
-  let nodeRadius = 5; // node radius, in pixels
+  let width = 500;
+  let height = 385;
+  const nodeRadius = 5;
+  $: links = networkData.links.map((d) => Object.create(d));
+  $: nodes = networkData.nodes.map((d) => Object.create(d));
+  const colourScale = d3.scaleOrdinal(d3.schemeCategory10);
+  let transform = d3.zoomIdentity;
+  let simulation;
+  onMount(() => {
+    simulation = d3
+      .forceSimulation(nodes)
+      .force(
+        "link",
+        d3
+          .forceLink(links)
+          .id((d) => d.id)
+          .distance(30)
+      )
+      .force("charge", d3.forceManyBody().strength(-10))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .on("tick", simulationUpdate);
 
-  function intern(value) {
-    return value !== null && typeof value === "object"
-      ? value.valueOf()
-      : value;
+    d3.select(svg)
+      .call(d3.zoom().scaleExtent([0.75, 3]).on("zoom", zoomed))
+      .on("click", (d) => {
+        clickFun(d, marker);
+      });
+
+    // d3.select(nodes).call(clickFun, networkData, marker);
+  });
+  function simulationUpdate() {
+    simulation.tick();
+    nodes = [...nodes];
+    links = [...links];
+  }
+  function zoomed(currentEvent) {
+    transform = currentEvent.transform;
+    simulationUpdate();
   }
 
-  //nodes
-  const N = map(nodes, nodeId).map(intern);
-  //link source
-  const LS = map(links, linkSource).map(intern);
-  //link target
-  const LT = map(links, linkTarget).map(intern);
-  //node title
-  nodeTitle = (_, i) => N[i];
-  //title
-  const T = map(nodes, nodeTitle);
-  //group
-  const G = map(nodes, nodeGroup).map(intern);
-  //linkstroke width
-  const W = map(links, linkStrokeWidth);
-  //linkstroke
-  const L = typeof linkStroke !== "function" ? null : map(links, linkStroke);
-
-  // Replace the input nodes and links with mutable objects for the simulation.
-  nodes = map(nodes, (_, i) => ({ id: N[i] }));
-  links = map(links, (_, i) => ({ source: LS[i], target: LT[i] }));
-
-  // Compute default domains.
-  let nodeGroups = sort(G);
-
-  // Construct the scales.
-  const color = nodeGroup == null ? null : scaleOrdinal(nodeGroups, colors);
-
-  // Construct the forces.
-  const forceNode = forceManyBody();
-  const forceLinker = forceLink(links).id(({ index: i }) => N[i]);
-  forceNode.strength(nodeStrength);
-  forceLinker.strength(linkStrength);
-
-  onMount(() => {
-    //place ticked links
-    function ticked() {
-      link
-        .attr("x1", (d) => d.source.x)
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
-
-      node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-    }
-
-    //init svg
-    svg = select(svg).append("g");
-
-    //add links
-    const link = svg
-      .append("g")
-      .attr("stroke", typeof linkStroke !== "function" ? linkStroke : null)
-      .attr("stroke-opacity", linkStrokeOpacity)
-      .attr(
-        "stroke-width",
-        typeof linkStrokeWidth !== "function" ? linkStrokeWidth : null
-      )
-      .attr("stroke-linecap", linkStrokeLinecap)
-      .selectAll("line")
-      .data(links)
-      .join("line");
-
-    //add nodes
-    const node = svg
-      .append("g")
-      .attr("fill", nodeFill)
-      .attr("stroke", nodeStroke)
-      .attr("stroke-opacity", nodeStrokeOpacity)
-      .attr("stroke-width", nodeStrokeWidth)
-      .selectAll("circle")
-      .data(nodes)
-      .join("circle")
-      .attr("r", nodeRadius)
-      .style("cursor", "pointer")
-      .call(clickFun, networkData, marker);
-
-    //add simulation
-    const simulation = forceSimulation(nodes)
-      .force("link", forceLinker)
-      .force("charge", forceNode)
-      .force("center", forceCenter())
-      .on("tick", ticked);
-
-    if (W) link.attr("stroke-width", ({ index: i }) => W[i]);
-    if (L) link.attr("stroke", ({ index: i }) => L[i]);
-    if (G) node.attr("fill", ({ index: i }) => color(G[i]));
-    if (T) node.append("title").text(({ index: i }) => T[i]);
-  });
+  function resize() {
+    ({ width, height } = svg.getBoundingClientRect());
+  }
 </script>
 
-<svg {height} {width} viewBox={`0 0 ${height} ${width}`} bind:this={svg} />
+<svelte:window on:resize={resize} />
 
-<!-- style="max-width: 100%; height: auto; height: intrinsic" -->
+<!-- SVG was here -->
+<div bind:clientWidth={width}>
+  <svg bind:this={svg} {width} {height}>
+    {#each links as link}
+      <g stroke="#999" stroke-opacity=".75">
+        <line
+          x1={link.source.x}
+          y1={link.source.y}
+          x2={link.target.x}
+          y2={link.target.y}
+          stroke-width="1.25"
+          transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
+        >
+          <title>{link.source.id}</title>
+        </line>
+      </g>
+    {/each}
+
+    {#each nodes as point}
+      <circle
+        class="node"
+        r="5"
+        fill={colourScale(point.group)}
+        cx={point.x}
+        cy={point.y}
+        data-value={point.group}
+        transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
+      >
+        <title>{point.id}</title></circle
+      >
+    {/each}
+  </svg>
+</div>
+
+<style>
+  svg {
+    float: left;
+  }
+  circle {
+    stroke: #fff;
+    stroke-width: 1.5;
+    cursor: pointer;
+  }
+</style>
