@@ -13,6 +13,7 @@
 
   export let catData;
   export let marker;
+  export let selectedCat;
 
   let hoveredData;
   let width = 400;
@@ -86,27 +87,38 @@
             width={xNegScale(d.neg) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={"red"}
-            opacity={hoveredData ? (hoveredData == d ? 1 : 0.45) : 1}
+            opacity={selectedCat === null && !hoveredData
+              ? 1
+              : hoveredData === d || selectedCat === i
+              ? 1
+              : 0.55}
             data-value={i}
             on:focus={(e) => {
               tooltip.mouseOver(e);
               hoveredData = d;
+              selectedCat = i;
             }}
             on:mouseover={(e) => {
               tooltip.mouseOver(e);
               hoveredData = d;
+              selectedCat = i;
             }}
             on:mousemove={tooltip.mouseMove}
             on:mouseleave={(e) => {
               tooltip.mouseLeave(e);
               hoveredData = null;
+              selectedCat = null;
             }}
             on:blur={(e) => {
               tooltip.mouseLeave(e);
               hoveredData = null;
+              selectedCat = null;
             }}
             on:keydown={(e) => clickFun(e, marker)}
-            on:click={(e) => clickFun(e, marker)}
+            on:click={(e) => {
+              clickFun(e, marker);
+              selectedCat = i;
+            }}
           />
         {/each}
       </g>
@@ -119,24 +131,32 @@
             width={xPosScale(d.pos) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={"darkblue"}
-            opacity={hoveredData ? (hoveredData == d ? 1 : 0.55) : 1}
+            opacity={selectedCat === null && !hoveredData
+              ? 1
+              : hoveredData === d || selectedCat === i
+              ? 1
+              : 0.55}
             data-value={i}
             on:focus={(e) => {
               tooltip.mouseOver(e);
               hoveredData = d;
+              selectedCat = i;
             }}
             on:mouseover={(e) => {
               tooltip.mouseOver(e);
               hoveredData = d;
+              selectedCat = i;
             }}
             on:mousemove={tooltip.mouseMove}
             on:mouseleave={(e) => {
               tooltip.mouseLeave(e);
               hoveredData = null;
+              selectedCat = null;
             }}
             on:blur={(e) => {
               tooltip.mouseLeave(e);
               hoveredData = null;
+              selectedCat = null;
             }}
             on:keydown={(e) => clickFun(e, marker)}
             on:click={(e) => clickFun(e, marker)}

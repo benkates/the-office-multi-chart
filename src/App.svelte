@@ -28,9 +28,9 @@
     })
     .join(" ");
 
-  let width, height;
-  width = "400";
-  height = "400";
+  $: selectedCat = null;
+  let width = "400";
+  let height = "400";
 
   let width2;
 </script>
@@ -42,9 +42,11 @@
       <iconify-icon inline icon="mdi:page-layout-header-footer" />
       Multi-Chart Example (Svelte)
     </h1>
-    <p>
+    <p style="font-style:italic;">
       This is a proof of concept multi-chart tool using randomly generated data.
-      Click on a category to highlight some random text below. Happy exploring!
+      Hover on chart elements to toggle visibility among groups across charts.
+      <br />Click on a category to highlight some random text below. Happy
+      exploring!
     </p>
     <!-- category, CatCountChart -->
     <Row noGutters={false} class="gy-3">
@@ -58,7 +60,7 @@
             ></CardHeader
           >
           <CardBody>
-            <CatCountChart {catData} {marker} />
+            <CatCountChart {catData} {marker} bind:selectedCat />
           </CardBody>
         </Card>
       </Col>
@@ -77,7 +79,7 @@
             >
           </CardHeader>
           <CardBody>
-            <PosNegChart {catData} {marker} />
+            <PosNegChart {catData} {marker} bind:selectedCat />
           </CardBody>
         </Card>
       </Col>
@@ -96,7 +98,7 @@
             >
           </CardHeader>
           <CardBody>
-            <ForceChart {networkData} {marker} />
+            <ForceChart {networkData} {catData} {marker} bind:selectedCat />
           </CardBody>
         </Card>
       </Col>

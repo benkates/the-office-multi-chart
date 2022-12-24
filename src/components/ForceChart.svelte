@@ -34,9 +34,12 @@
   import { tweened } from "svelte/motion";
 
   import { clickFun } from "../utils/clickFun";
+  import Tooltip from "../utils/Tooltip.svelte";
   export let marker;
+  export let selectedCat;
 
   export let networkData;
+  export let catData;
   let svg;
   let width = 500;
   let height = 400;
@@ -54,6 +57,8 @@
     duration: 1250,
   });
   tweenedVal.set(1);
+
+  let hoveredData, tooltip, isHovered, x, y;
 
   onMount(() => {
     simulation = d3
@@ -93,6 +98,7 @@
 <!-- SVG was here -->
 
 <div bind:clientWidth={width}>
+  <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="3" {isHovered} />
   <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
     {#each links as link}
       <g stroke="#999" stroke-opacity="0.75">
@@ -101,6 +107,11 @@
           y1={link.source.y}
           x2={link.target.x}
           y2={link.target.y}
+          opacity={selectedCat === null
+            ? 1
+            : selectedCat === link.source.group
+            ? 1
+            : 0.35}
           stroke-width="1.25"
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >
@@ -113,10 +124,15 @@
       {#each nodes as point}
         <circle
           class="node"
-          r="5"
+          r={selectedCat === null ? 5 : selectedCat === point.group ? 7 : 5}
           fill={colourScale(point.group)}
           cx={point.x}
           cy={point.y}
+          opacity={selectedCat === null
+            ? 1
+            : selectedCat === point.group
+            ? 1
+            : 0.55}
           tabIndex="0"
           on:click={(d) => {
             clickFun(d, marker);
@@ -124,10 +140,30 @@
           on:keydown={(d) => {
             clickFun(d, marker);
           }}
+          on:mouseover={(e) => {
+            tooltip.mouseOver(e);
+            hoveredData = catData[point.group];
+            selectedCat = point.group;
+          }}
+          on:focus={(e) => {
+            tooltip.mouseOver(e);
+            hoveredData = catData[point.group];
+            selectedCat = point.group;
+          }}
+          on:mouseleave={(e) => {
+            tooltip.mouseLeave(e);
+            selectedCat = null;
+            hoveredData = null;
+          }}
+          on:blur={(e) => {
+            tooltip.mouseLeave(e);
+            selectedCat = null;
+            hoveredData = null;
+          }}
           data-value={point.group}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >
-          <title>{point.id}</title></circle
+          <title>Category: {point.group + 1}</title></circle
         >
       {/each}
     </g>
@@ -143,5 +179,6 @@
     stroke: #fff;
     stroke-width: 1.5;
     cursor: pointer;
+    transition: opacity 500ms ease, r 500ms ease;
   }
 </style>

@@ -56,6 +56,7 @@ catData.map((d, i) => {
 
 const networkData = { nodes, links };
 
+// https://transcripts.foreverdreaming.org/viewtopic.php?t=25301
 const fullText = `<div class="content" style="height: auto !important; min-height: 0px !important;"><strong class="text-strong">Michael</strong>: All right Jim. Your quarterlies look very good. How are things at the library?<br>
 <br>
 <strong class="text-strong">Jim</strong>: Oh, I told you. I couldn't close it. So...<br>
