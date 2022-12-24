@@ -21,6 +21,7 @@
   import { fade } from "svelte/transition";
 
   import "iconify-icon";
+  import TextResetButton from "./utils/TextResetButton.svelte";
 
   let style = schemeCategory10
     .map((e, i) => {
@@ -115,7 +116,8 @@
                 icon="material-symbols:text-snippet-outline-sharp"
               />
               Random <strong>text highlight</strong> based on
-              <strong>category</strong></CardTitle
+              <strong>category</strong>
+              <TextResetButton {marker} /></CardTitle
             ></CardHeader
           >
           <CardBody id="text-container">
