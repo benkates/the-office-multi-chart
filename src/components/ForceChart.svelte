@@ -75,8 +75,6 @@
       .on("tick", simulationUpdate);
 
     d3.select(svg).call(d3.zoom().scaleExtent([0.75, 3]).on("zoom", zoomed));
-
-    // d3.select(nodes).call(clickFun, networkData, marker);
   });
   function simulationUpdate() {
     simulation.tick();
@@ -87,21 +85,16 @@
     transform = currentEvent.transform;
     simulationUpdate();
   }
-
-  function resize() {
-    ({ width, height } = svg.getBoundingClientRect());
-  }
 </script>
 
-<svelte:window on:resize={resize} />
-
-<!-- SVG was here -->
-
 <div bind:clientWidth={width}>
+  <!-- tooltip -->
   <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="3" {isHovered} />
+  <!-- svg -->
   <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
     {#each links as link}
       <g stroke="#999" stroke-opacity="0.75">
+        <!-- line including animated opacity -->
         <line
           x1={link.source.x}
           y1={link.source.y}
@@ -112,7 +105,11 @@
             : selectedCat === link.source.group
             ? 1
             : 0.35}
-          stroke-width="1.25"
+          stroke-width={selectedCat === null
+            ? 1.5
+            : selectedCat === link.source.group
+            ? 2.5
+            : 1.5}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >
           <title>{link.source.id}</title>
@@ -122,6 +119,7 @@
 
     <g>
       {#each nodes as point}
+        <!-- circle including animated features -->
         <circle
           class="node"
           r={selectedCat === null ? 5 : selectedCat === point.group ? 7 : 5}
@@ -135,10 +133,10 @@
             : 0.55}
           tabIndex="0"
           on:click={(d) => {
-            clickFun(d, marker);
+            clickFun(d, point.group, marker);
           }}
           on:keydown={(d) => {
-            clickFun(d, marker);
+            clickFun(d, point.group, marker);
           }}
           on:mouseover={(e) => {
             tooltip.mouseOver(e);
@@ -160,7 +158,6 @@
             selectedCat = null;
             hoveredData = null;
           }}
-          data-value={point.group}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >
           <title>Category: {point.group + 1}</title></circle
@@ -168,7 +165,6 @@
       {/each}
     </g>
   </svg>
-  <!-- </OnMountComp> -->
 </div>
 
 <style>
@@ -180,5 +176,8 @@
     stroke-width: 1.5;
     cursor: pointer;
     transition: opacity 500ms ease, r 500ms ease;
+  }
+  line {
+    transition: opacity 500ms ease, stroke-width 500ms ease;
   }
 </style>
