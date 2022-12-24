@@ -41,7 +41,7 @@
     </h1>
     <p>
       This is a proof of concept multi-chart tool using randomly generated data.
-      Click on a category to highlight some random text below.
+      Click on a category to highlight some random text below. Happy exploring!
     </p>
     <!-- category, CatCountChart -->
     <Row noGutters={false} class="gy-3">
