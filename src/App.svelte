@@ -17,7 +17,7 @@
     CardTitle,
   } from "sveltestrap";
 
-  import OnMount from "./utils/OnMount.svelte";
+  import OnMount from "./utils/OnMountComp.svelte";
   import { fade } from "svelte/transition";
 
   import "iconify-icon";
@@ -123,12 +123,23 @@
         </Card>
       </Col>
     </Row>
+    <br />
+    <p style="text-align:center; font-style:italic;">
+      Find the code on <a
+        href="https://github.com/benkates/multi-chart-svelte"
+        target="_blank"
+        rel="noreferrer">GitHub here</a
+      >!
+    </p>
   </Container>
-  <br />
 </main>
 
 <!-- dynamically generate each class style for the text highlight -->
 {@html `<style>
+  .card-title {
+    margin-bottom:0;
+  }
+
   .inline-label {
     color:white;
     padding:3px;

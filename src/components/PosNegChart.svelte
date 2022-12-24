@@ -9,7 +9,7 @@
   import { clickFun } from "../utils/clickFun";
 
   import { fade } from "svelte/transition";
-  import OnMount from "../utils/OnMount.svelte";
+  import OnMount from "../utils/OnMountComp.svelte";
 
   export let catData;
   export let marker;

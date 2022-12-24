@@ -7,6 +7,8 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 - [ ] check out the skeleton UI (uses tailwind CSS)
 - [ ] check out multi-hover (hover on one, another chart lights up)
 - [ ] [use tooltip as action ie: use:tooltip](https://svelte.dev/repl/dd6754a2ad0547c5b1c1ea37c0293fef?version=3.55.0) and [this video](https://www.youtube.com/watch?v=0GqIoo66i0g)
+- [x] move/zoom force?
+- [x] fix card title padding (too big on bottom...)
 - [x] created relative path (`base: "./"`) in `vite.config.js`
 - [x] add an interaction for the bar charts
 - [x] [sveltify the force directed graph](https://github.com/happybeing/d3-fdg-svelte/blob/master/src/NetworkGraphSvelteSVG.svelte)

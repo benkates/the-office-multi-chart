@@ -31,8 +31,7 @@
     forceCenter,
   };
 
-  import { fade } from "svelte/transition";
-  import OnMount from "../utils/OnMount.svelte";
+  import { tweened } from "svelte/motion";
 
   import { clickFun } from "../utils/clickFun";
   export let marker;
@@ -47,6 +46,15 @@
   const colourScale = d3.scaleOrdinal(d3.schemeCategory10);
   let transform = d3.zoomIdentity;
   let simulation;
+
+  //setup fade animation using tweened()
+  //OnMountComp component does not work since there is other onMount funs going on
+  const tweenedVal = tweened(0, {
+    delay: 0,
+    duration: 1250,
+  });
+  tweenedVal.set(1);
+
   onMount(() => {
     simulation = d3
       .forceSimulation(nodes)
@@ -83,24 +91,25 @@
 <svelte:window on:resize={resize} />
 
 <!-- SVG was here -->
-<OnMount>
-  <div bind:clientWidth={width} transition:fade={{ duration: 1250 }}>
-    <svg bind:this={svg} {width} {height}>
-      {#each links as link}
-        <g stroke="#999" stroke-opacity=".75">
-          <line
-            x1={link.source.x}
-            y1={link.source.y}
-            x2={link.target.x}
-            y2={link.target.y}
-            stroke-width="1.25"
-            transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
-          >
-            <title>{link.source.id}</title>
-          </line>
-        </g>
-      {/each}
 
+<div bind:clientWidth={width}>
+  <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
+    {#each links as link}
+      <g stroke="#999" stroke-opacity="0.75">
+        <line
+          x1={link.source.x}
+          y1={link.source.y}
+          x2={link.target.x}
+          y2={link.target.y}
+          stroke-width="1.25"
+          transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
+        >
+          <title>{link.source.id}</title>
+        </line>
+      </g>
+    {/each}
+
+    <g>
       {#each nodes as point}
         <circle
           class="node"
@@ -121,9 +130,10 @@
           <title>{point.id}</title></circle
         >
       {/each}
-    </svg>
-  </div>
-</OnMount>
+    </g>
+  </svg>
+  <!-- </OnMountComp> -->
+</div>
 
 <style>
   svg {
