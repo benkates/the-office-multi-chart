@@ -1,5 +1,5 @@
+// create categorical data
 let catData = [];
-
 catData.push(
   ...Array.from({ length: 10 }, (e, i) => {
     return {
@@ -10,6 +10,7 @@ catData.push(
   })
 );
 
+//create network data
 let nodes = [];
 let links = [];
 

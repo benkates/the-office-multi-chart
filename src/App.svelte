@@ -1,9 +1,9 @@
 <script>
   import { schemeCategory10 } from "d3"; //shows as not used, see <style>
-  import PosNegChart from "./lib/PosNegChart.svelte";
-  import CatCountChart from "./lib/CatCountChart.svelte";
+  import PosNegChart from "./components/PosNegChart.svelte";
+  import CatCountChart from "./components/CatCountChart.svelte";
   import { catData, networkData, fullText } from "./utils/data";
-  import ForceChart from "./lib/ForceChart.svelte";
+  import ForceChart from "./components/ForceChart.svelte";
   import mark from "mark.js";
   let marker = new mark("#text-container");
 
@@ -34,6 +34,7 @@
 
 <main>
   <Container>
+    <!-- header -->
     <h1 style="padding-top:10px">
       <iconify-icon inline icon="mdi:page-layout-header-footer" />
       Multi-Chart Example (Svelte)
@@ -41,6 +42,7 @@
     <p>
       This is a proof of concept multi-chart tool using randomly generated data
     </p>
+    <!-- category, CatCountChart -->
     <Row noGutters={false} class="gy-3">
       <Col xs="12" lg="6">
         <Card>
@@ -55,6 +57,7 @@
           </CardBody>
         </Card>
       </Col>
+      <!-- pos/neg, PosNegChart -->
       <Col xs="12" lg="6">
         <Card>
           <CardHeader>
@@ -76,6 +79,7 @@
     </Row>
     <br />
     <Row noGutters={false} class="gy-3">
+      <!-- force, ForceChart -->
       <Col xs="12" lg="6">
         <Card>
           <CardHeader>
@@ -89,6 +93,7 @@
           </CardBody>
         </Card>
       </Col>
+      <!-- text,fullText -->
       <Col xs="12" lg="6">
         <Card>
           <CardHeader
@@ -109,7 +114,7 @@
   <br />
 </main>
 
-<!-- dynamically generate each class style -->
+<!-- dynamically generate each class style for the text highlight -->
 {@html `<style>
     .inline-label {
     color:white;

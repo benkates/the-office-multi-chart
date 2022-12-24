@@ -25,6 +25,7 @@
   $: xNegScale = scaleLinear()
     .domain([0, -1])
     .rangeRound([0, width / 2 - margin.right / 2 - margin.left / 2]);
+
   //setup y scale
   $: yScale = scaleBand()
     .domain(catData.map((e) => e.name))
@@ -49,8 +50,11 @@
 </script>
 
 <div bind:clientWidth={width}>
+  <!-- tooltip -->
   <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="2" {isHovered} />
+  <!-- svg -->
   <svg {height} {width}>
+    <!-- axis -->
     <PosNegChartAxis
       {catData}
       {width}
@@ -59,6 +63,7 @@
       {xFullScale}
       {yScale}
     />
+    <!-- negative rect group -->
     <g id="negGroup">
       {#each catData as d, i}
         <rect
@@ -94,6 +99,7 @@
         />
       {/each}
     </g>
+    <!-- positive rect group -->
     <g id="posGroup">
       {#each catData as d, i}
         <rect

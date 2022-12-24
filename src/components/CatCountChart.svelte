@@ -50,10 +50,15 @@
 </script>
 
 <div bind:clientWidth={width}>
+  <!--tooltip-->
   <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="2" {isHovered} />
+
+  <!--svg-->
   <svg {width} {height}>
+    <!--axis-->
     <CatCountChartAxis {catData} {width} {height} {margin} {xScale} {yScale} />
-    <g id="posGroup">
+    <!--category rect group-->
+    <g id="catGroup">
       {#each catData as d, i}
         <rect
           x={xScale(0)}

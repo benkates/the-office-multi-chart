@@ -7,6 +7,7 @@
   export let id;
   export let isHovered;
 
+  //export relevant mouse functions
   export function mouseOver(e) {
     isHovered = true;
     x = e.layerX + 10;
@@ -22,6 +23,7 @@
 </script>
 
 {#if data && isHovered}
+  <!-- if data and hover flag, show tooltip -->
   <div
     id="tooltip{id}"
     style="top: {y}px; left: {x}px;"
@@ -47,7 +49,6 @@
     border: 1px solid #ddd;
     box-shadow: 1px 1px 1px #ddd;
     color: #fff;
-    /* display: block; */
     font-size: 12px;
     padding: 0.2rem 0.4rem;
     position: absolute;
