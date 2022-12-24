@@ -37,7 +37,7 @@
   export let networkData;
   let svg;
   let width = 500;
-  let height = 385;
+  let height = 400;
   const nodeRadius = 5;
   $: links = networkData.links.map((d) => Object.create(d));
   $: nodes = networkData.nodes.map((d) => Object.create(d));

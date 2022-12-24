@@ -40,7 +40,8 @@
       Multi-Chart Example (Svelte)
     </h1>
     <p>
-      This is a proof of concept multi-chart tool using randomly generated data
+      This is a proof of concept multi-chart tool using randomly generated data.
+      Click on a category to highlight some random text below.
     </p>
     <!-- category, CatCountChart -->
     <Row noGutters={false} class="gy-3">
@@ -48,8 +49,9 @@
         <Card>
           <CardHeader
             ><CardTitle
-              ><iconify-icon inline icon="ic:outline-category" /> What does count
-              look like by category?</CardTitle
+              ><iconify-icon inline icon="ic:outline-category" /> What does
+              <strong>count</strong> look like by
+              <strong>category?</strong></CardTitle
             ></CardHeader
           >
           <CardBody>
@@ -84,8 +86,10 @@
         <Card>
           <CardHeader>
             <CardTitle
-              ><iconify-icon inline icon="fa6-solid:circle-nodes" /> What does the
-              network look like by category?</CardTitle
+              ><iconify-icon inline icon="fa6-solid:circle-nodes" /> What does
+              the
+              <strong>network</strong> look like by
+              <strong>category?</strong></CardTitle
             >
           </CardHeader>
           <CardBody>
@@ -101,7 +105,9 @@
               ><iconify-icon
                 inline
                 icon="material-symbols:text-snippet-outline-sharp"
-              /> Select a node or category to highlight some random text</CardTitle
+              />
+              Random <strong>text highlight</strong> based on
+              <strong>category</strong></CardTitle
             ></CardHeader
           >
           <CardBody id="text-container">
@@ -116,10 +122,11 @@
 
 <!-- dynamically generate each class style for the text highlight -->
 {@html `<style>
-    .inline-label {
+  .inline-label {
     color:white;
     padding:3px;
     border-radius:4px;
     font-weight:bold;
   }
-  ${style}</style>`}
+  ${style}
+</style>`}
