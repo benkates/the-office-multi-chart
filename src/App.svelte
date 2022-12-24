@@ -35,7 +35,7 @@
 <main>
   <Container>
     <h1 style="padding-top:10px">
-      <iconify-icon inline icon="ri:bar-chart-horizontal-fill" />
+      <iconify-icon inline icon="mdi:page-layout-header-footer" />
       Multi-Chart Example (Svelte)
     </h1>
     <p>

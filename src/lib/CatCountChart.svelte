@@ -9,7 +9,7 @@
 
   import { tweened } from "svelte/motion";
   import * as easings from "svelte/easing";
-  import { clickFun } from "../utils/force";
+  import { clickFun } from "../utils/clickFun";
 
   export let catData;
   export let marker;

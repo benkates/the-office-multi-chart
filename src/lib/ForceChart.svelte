@@ -31,7 +31,7 @@
     forceCenter,
   };
 
-  import { clickFun } from "../utils/force";
+  import { clickFun } from "../utils/clickFun";
   export let marker;
 
   export let networkData;
@@ -58,11 +58,7 @@
       .force("center", d3.forceCenter(width / 2, height / 2))
       .on("tick", simulationUpdate);
 
-    d3.select(svg)
-      .call(d3.zoom().scaleExtent([0.75, 3]).on("zoom", zoomed))
-      .on("click", (d) => {
-        clickFun(d, marker);
-      });
+    d3.select(svg).call(d3.zoom().scaleExtent([0.75, 3]).on("zoom", zoomed));
 
     // d3.select(nodes).call(clickFun, networkData, marker);
   });
@@ -108,6 +104,13 @@
         fill={colourScale(point.group)}
         cx={point.x}
         cy={point.y}
+        tabIndex="0"
+        on:click={(d) => {
+          clickFun(d, marker);
+        }}
+        on:keydown={(d) => {
+          clickFun(d, marker);
+        }}
         data-value={point.group}
         transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
       >

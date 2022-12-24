@@ -3,6 +3,10 @@ export function clickFun(d, marker) {
   //split words into an array
   // @ts-ignore
 
+  if (d.type === "keydown" && d.key !== "Enter") {
+    return;
+  }
+
   let words = fullText.split(" ");
 
   let i = Number(d.target.attributes["data-value"].value);
