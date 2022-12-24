@@ -56,6 +56,50 @@ catData.map((d, i) => {
 
 const networkData = { nodes, links };
 
-const fullText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.<br /><br /> Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque est.`;
+const fullText = `<div class="content" style="height: auto !important; min-height: 0px !important;"><strong class="text-strong">Michael</strong>: All right Jim. Your quarterlies look very good. How are things at the library?<br>
+<br>
+<strong class="text-strong">Jim</strong>: Oh, I told you. I couldn't close it. So...<br>
+<br>
+<strong class="text-strong">Michael</strong>: So you've come to the master for guidance? Is this what you're saying, grasshopper?<br>
+<br>
+<strong class="text-strong">Jim</strong>: Actually, you called me in here, but yeah.<br>
+<br>
+<strong class="text-strong">Michael</strong>: All right. Well, let me show you how it's done.<br>
 
+<hr>
+
+<strong class="text-strong">Michael</strong>: [on the phone] Yes, I'd like to speak to your office manager, please. Yes, hello. This is Michael Scott. I am the Regional Manager of Dunder Mifflin Paper Products. Just wanted to talk to you manager-a-manger. [quick cut scene] All right. Done deal. Thank you very much, sir. You're a gentleman and a scholar. Oh, I'm sorry. OK. I'm sorry. My mistake. [hangs up] That was a woman I was talking to, so... She had a very low voice. Probably a smoker, so... [Clears throat] So that's the way it's done.<br>
+
+<hr>
+
+<strong class="text-strong">Michael</strong>: I've, uh, I've been at Dunder Mifflin for 12 years, the last four as Regional Manager. If you want to come through here... See we have the entire floor. So this is my kingdom, as far as the eye can see. This is our receptionist, Pam. Pam! Pam-Pam! Pam Beesly. Pam has been with us for... forever. Right, Pam?<br>
+<br>
+<strong class="text-strong">Pam</strong>: Well. I don't know.<br>
+<br>
+<strong class="text-strong">Michael</strong>: If you think she's cute now, you should have seen her a couple of years ago. [growls]<br>
+<br>
+<strong class="text-strong">Pam</strong>: What?<br>
+<br>
+<strong class="text-strong">Michael</strong>: Any messages?<br>
+<br>
+<strong class="text-strong">Pam</strong>: Uh, yeah. Just a fax.<br>
+<br>
+<strong class="text-strong">Michael</strong>: Oh! Pam, this is from Corporate. How many times have I told you? There's a special filing cabinet for things from corporate.<br>
+<br>
+<strong class="text-strong">Pam</strong>: You haven't told me.<br>
+<br>
+<strong class="text-strong">Michael</strong>: It's called the wastepaper basket! Look at that! Look at that face.<br>
+
+<hr>
+
+<strong class="text-strong">Michael</strong>: People say I am the best boss. They go, "God we've never worked in a place like this before. You're hilarious." "And you get the best out of us." [shows the camera his WORLD'S BEST BOSS mug] I think that pretty much sums it up. I found it at Spencer Gifts.<br>
+
+<hr>
+
+<strong class="text-strong">Dwight</strong>: [singing] Shall I play for you? Pa rum pump um pum [Imitates heavy drumming] I have no gifts for you. Pa rum pump um pum [Imitates heavy drumming]<br>
+
+<hr>
+
+<strong class="text-strong">Jim</strong>: My job is to speak to clients on the phone about... uh, quantities and type of copier paper. You know, whether we can supply it to them. Whether they can pay for it. And... I'm boring myself just talking about this.<br>
+`;
 export { catData, networkData, fullText };

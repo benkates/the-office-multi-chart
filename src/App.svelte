@@ -83,7 +83,7 @@
       </Col>
     </Row>
     <br />
-    <Row noGutters={false} class="gy-3">
+    <Row noGutters={false} class="gy-3 justify-content-center">
       <!-- force, ForceChart -->
       <Col xs="12" lg="6">
         <Card>
@@ -100,8 +100,11 @@
           </CardBody>
         </Card>
       </Col>
-      <!-- text,fullText -->
-      <Col xs="12" lg="6">
+    </Row>
+    <br />
+    <!-- text,fullText -->
+    <Row noGutters={false} class="gy-3">
+      <Col lg="12">
         <Card>
           <CardHeader
             ><CardTitle
