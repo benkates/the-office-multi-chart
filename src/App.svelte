@@ -4,8 +4,7 @@
   import CatCountChart from "./components/CatCountChart.svelte";
   import { catData, networkData, fullText } from "./utils/data";
   import ForceChart from "./components/ForceChart.svelte";
-  import mark from "mark.js";
-  let marker = new mark("#text-container");
+  import marker from "./utils/mark";
 
   import {
     Col,
@@ -17,7 +16,7 @@
     CardTitle,
   } from "sveltestrap";
 
-  import OnMount from "./utils/OnMountComp.svelte";
+  import OnMountComp from "./utils/OnMountComp.svelte";
   import { fade } from "svelte/transition";
 
   import "iconify-icon";
@@ -29,11 +28,8 @@
     })
     .join(" ");
 
-  $: selectedCat = null;
   let width = "400";
   let height = "400";
-
-  let width2;
 </script>
 
 <main>
@@ -61,7 +57,7 @@
             ></CardHeader
           >
           <CardBody>
-            <CatCountChart {catData} {marker} bind:selectedCat />
+            <CatCountChart {catData} />
           </CardBody>
         </Card>
       </Col>
@@ -80,7 +76,7 @@
             >
           </CardHeader>
           <CardBody>
-            <PosNegChart {catData} {marker} bind:selectedCat />
+            <PosNegChart {catData} />
           </CardBody>
         </Card>
       </Col>
@@ -99,7 +95,7 @@
             >
           </CardHeader>
           <CardBody>
-            <ForceChart {networkData} {catData} {marker} bind:selectedCat />
+            <ForceChart {networkData} {catData} />
           </CardBody>
         </Card>
       </Col>
@@ -121,11 +117,11 @@
             ></CardHeader
           >
           <CardBody id="text-container">
-            <OnMount>
+            <OnMountComp>
               <div transition:fade={{ duration: 1250 }}>
                 {@html fullText}
               </div>
-            </OnMount>
+            </OnMountComp>
           </CardBody>
         </Card>
       </Col>

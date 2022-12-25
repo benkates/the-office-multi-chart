@@ -57,22 +57,7 @@ catData.map((d, i) => {
 const networkData = { nodes, links };
 
 // https://transcripts.foreverdreaming.org/viewtopic.php?t=25301
-const fullText = `<div class="content" style="height: auto !important; min-height: 0px !important;"><strong class="text-strong">Michael</strong>: All right Jim. Your quarterlies look very good. How are things at the library?<br>
-<br>
-<strong class="text-strong">Jim</strong>: Oh, I told you. I couldn't close it. So...<br>
-<br>
-<strong class="text-strong">Michael</strong>: So you've come to the master for guidance? Is this what you're saying, grasshopper?<br>
-<br>
-<strong class="text-strong">Jim</strong>: Actually, you called me in here, but yeah.<br>
-<br>
-<strong class="text-strong">Michael</strong>: All right. Well, let me show you how it's done.<br>
-
-<hr>
-
-<strong class="text-strong">Michael</strong>: [on the phone] Yes, I'd like to speak to your office manager, please. Yes, hello. This is Michael Scott. I am the Regional Manager of Dunder Mifflin Paper Products. Just wanted to talk to you manager-a-manger. [quick cut scene] All right. Done deal. Thank you very much, sir. You're a gentleman and a scholar. Oh, I'm sorry. OK. I'm sorry. My mistake. [hangs up] That was a woman I was talking to, so... She had a very low voice. Probably a smoker, so... [Clears throat] So that's the way it's done.<br>
-
-<hr>
-
+const fullText = `
 <strong class="text-strong">Michael</strong>: I've, uh, I've been at Dunder Mifflin for 12 years, the last four as Regional Manager. If you want to come through here... See we have the entire floor. So this is my kingdom, as far as the eye can see. This is our receptionist, Pam. Pam! Pam-Pam! Pam Beesly. Pam has been with us for... forever. Right, Pam?<br>
 <br>
 <strong class="text-strong">Pam</strong>: Well. I don't know.<br>

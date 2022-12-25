@@ -1,22 +1,20 @@
 <script>
   import { schemeCategory10, max } from "d3";
   import { scaleLinear, scaleBand, scaleOrdinal } from "d3-scale";
-
   import CatCountChartAxis from "./CatCountChartAxis.svelte";
-  import marginFun from "../utils/margin";
 
+  import marginFun from "../utils/margin";
   import Tooltip from "../utils/Tooltip.svelte";
+  import OnMountComp from "../utils/OnMountComp.svelte";
+  import clickFun from "../utils/clickFun";
+  import { selectedCat } from "../utils/stores";
+  import marker from "../utils/mark";
 
   import { tweened } from "svelte/motion";
   import * as easings from "svelte/easing";
-  import { clickFun } from "../utils/clickFun";
-
   import { fade } from "svelte/transition";
-  import OnMount from "../utils/OnMountComp.svelte";
 
   export let catData;
-  export let marker;
-  export let selectedCat;
 
   let hoveredData;
   let width = 400;
@@ -53,7 +51,7 @@
   let tooltip, isHovered, x, y;
 </script>
 
-<OnMount>
+<OnMountComp>
   <div bind:clientWidth={width} transition:fade={{ duration: 1250 }}>
     <!--tooltip-->
     <Tooltip
@@ -85,31 +83,25 @@
             width={(xScale(d.count) - margin.left) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={colorScale(d.name)}
-            opacity={selectedCat === null && !hoveredData
+            opacity={$selectedCat === null && !hoveredData
               ? 1
-              : hoveredData === d || selectedCat === i
+              : hoveredData === d || $selectedCat === i
               ? 1
               : 0.55}
             on:focus={(e) => {
-              tooltip.mouseOver(e);
+              tooltip.mouseOver(e, i);
               hoveredData = d;
-              selectedCat = i;
             }}
             on:mouseover={(e) => {
-              tooltip.mouseOver(e);
+              tooltip.mouseOver(e, i);
               hoveredData = d;
-              selectedCat = i;
             }}
             on:mousemove={tooltip.mouseMove}
             on:mouseleave={(e) => {
               tooltip.mouseLeave();
-              hoveredData = null;
-              selectedCat = null;
             }}
             on:blur={(e) => {
               tooltip.mouseLeave();
-              hoveredData = null;
-              selectedCat = null;
             }}
             on:keydown={(e) => clickFun(e, i, marker)}
             on:click={(e) => clickFun(e, i, marker)}
@@ -118,7 +110,7 @@
       </g>
     </svg>
   </div>
-</OnMount>
+</OnMountComp>
 
 <style>
   rect {

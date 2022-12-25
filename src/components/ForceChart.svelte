@@ -33,10 +33,11 @@
 
   import { tweened } from "svelte/motion";
 
-  import { clickFun } from "../utils/clickFun";
+  import clickFun from "../utils/clickFun";
   import Tooltip from "../utils/Tooltip.svelte";
-  export let marker;
-  export let selectedCat;
+  import { selectedCat } from "../utils/stores";
+
+  import marker from "../utils/mark";
 
   export let networkData;
   export let catData;
@@ -100,14 +101,14 @@
           y1={link.source.y}
           x2={link.target.x}
           y2={link.target.y}
-          opacity={selectedCat === null
+          opacity={$selectedCat === null
             ? 1
-            : selectedCat === link.source.group
+            : $selectedCat === link.source.group
             ? 1
             : 0.35}
-          stroke-width={selectedCat === null
+          stroke-width={$selectedCat === null
             ? 1.5
-            : selectedCat === link.source.group
+            : $selectedCat === link.source.group
             ? 2.5
             : 1.5}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
@@ -122,13 +123,13 @@
         <!-- circle including animated features -->
         <circle
           class="node"
-          r={selectedCat === null ? 5 : selectedCat === point.group ? 7 : 5}
+          r={$selectedCat === null ? 5 : $selectedCat === point.group ? 7 : 5}
           fill={colourScale(point.group)}
           cx={point.x}
           cy={point.y}
-          opacity={selectedCat === null
+          opacity={$selectedCat === null
             ? 1
-            : selectedCat === point.group
+            : $selectedCat === point.group
             ? 1
             : 0.55}
           tabIndex="0"
@@ -139,24 +140,18 @@
             clickFun(d, point.group, marker);
           }}
           on:mouseover={(e) => {
-            tooltip.mouseOver(e);
+            tooltip.mouseOver(e, point.group);
             hoveredData = catData[point.group];
-            selectedCat = point.group;
           }}
           on:focus={(e) => {
-            tooltip.mouseOver(e);
+            tooltip.mouseOver(e, point.group);
             hoveredData = catData[point.group];
-            selectedCat = point.group;
           }}
           on:mouseleave={(e) => {
             tooltip.mouseLeave(e);
-            selectedCat = null;
-            hoveredData = null;
           }}
           on:blur={(e) => {
             tooltip.mouseLeave(e);
-            selectedCat = null;
-            hoveredData = null;
           }}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >

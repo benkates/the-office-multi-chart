@@ -3,17 +3,16 @@
   import PosNegChartAxis from "./PosNegChartAxis.svelte";
   import Tooltip from "../utils/Tooltip.svelte";
   import marginFun from "../utils/margin";
+  import clickFun from "../utils/clickFun";
+  import OnMountComp from "../utils/OnMountComp.svelte";
+  import marker from "../utils/mark";
+  import { selectedCat } from "../utils/stores";
 
   import { tweened } from "svelte/motion";
   import * as easings from "svelte/easing";
-  import { clickFun } from "../utils/clickFun";
-
   import { fade } from "svelte/transition";
-  import OnMount from "../utils/OnMountComp.svelte";
 
   export let catData;
-  export let marker;
-  export let selectedCat;
 
   let hoveredData;
   let width = 400;
@@ -53,7 +52,7 @@
   let tooltip, isHovered, x, y;
 </script>
 
-<OnMount>
+<OnMountComp>
   <div bind:clientWidth={width} transition:fade={{ duration: 1250 }}>
     <!-- tooltip -->
     <Tooltip
@@ -87,36 +86,29 @@
             width={xNegScale(d.neg) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={"red"}
-            opacity={selectedCat === null && !hoveredData
+            opacity={$selectedCat === null && !hoveredData
               ? 1
-              : hoveredData === d || selectedCat === i
+              : hoveredData === d || $selectedCat === i
               ? 1
               : 0.55}
             on:focus={(e) => {
-              tooltip.mouseOver(e);
+              tooltip.mouseOver(e, i);
               hoveredData = d;
-              selectedCat = i;
             }}
             on:mouseover={(e) => {
-              tooltip.mouseOver(e);
+              tooltip.mouseOver(e, i);
               hoveredData = d;
-              selectedCat = i;
             }}
             on:mousemove={tooltip.mouseMove}
             on:mouseleave={(e) => {
               tooltip.mouseLeave(e);
-              hoveredData = null;
-              selectedCat = null;
             }}
             on:blur={(e) => {
               tooltip.mouseLeave(e);
-              hoveredData = null;
-              selectedCat = null;
             }}
             on:keydown={(e) => clickFun(e, i, marker)}
             on:click={(e) => {
               clickFun(e, i, marker);
-              selectedCat = i;
             }}
           />
         {/each}
@@ -130,32 +122,26 @@
             width={xPosScale(d.pos) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={"darkblue"}
-            opacity={selectedCat === null && !hoveredData
+            opacity={$selectedCat === null && !hoveredData
               ? 1
-              : hoveredData === d || selectedCat === i
+              : hoveredData === d || $selectedCat === i
               ? 1
               : 0.55}
             data-value={i}
             on:focus={(e) => {
-              tooltip.mouseOver(e);
+              tooltip.mouseOver(e, i);
               hoveredData = d;
-              selectedCat = i;
             }}
             on:mouseover={(e) => {
-              tooltip.mouseOver(e);
+              tooltip.mouseOver(e, i);
               hoveredData = d;
-              selectedCat = i;
             }}
             on:mousemove={tooltip.mouseMove}
             on:mouseleave={(e) => {
               tooltip.mouseLeave(e);
-              hoveredData = null;
-              selectedCat = null;
             }}
             on:blur={(e) => {
               tooltip.mouseLeave(e);
-              hoveredData = null;
-              selectedCat = null;
             }}
             on:keydown={(e) => clickFun(e, i, marker)}
             on:click={(e) => clickFun(e, i, marker)}
@@ -164,7 +150,7 @@
       </g>
     </svg>
   </div>
-</OnMount>
+</OnMountComp>
 
 <style>
   /* control opacity change */

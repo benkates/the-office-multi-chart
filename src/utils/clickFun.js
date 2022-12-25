@@ -1,5 +1,5 @@
 import { fullText } from "./data";
-export function clickFun(d, i, marker) {
+export default function clickFun(d, i, marker) {
   //if it's a keypress and it's not the enter key, return
   if (d.type === "keydown" && d.key !== "Enter") {
     return;

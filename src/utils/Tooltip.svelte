@@ -1,6 +1,8 @@
 <script>
   import { format } from "d3";
   import { fly } from "svelte/transition";
+  import { selectedCat } from "./stores";
+
   export let data;
   export let x;
   export let y;
@@ -8,10 +10,11 @@
   export let isHovered;
 
   //export relevant mouse functions
-  export function mouseOver(e) {
+  export function mouseOver(e, i) {
     isHovered = true;
     x = e.layerX + 10;
     y = e.layerY + 10;
+    $selectedCat = i;
   }
   export function mouseMove(e) {
     x = e.layerX + 10;
@@ -19,6 +22,7 @@
   }
   export function mouseLeave() {
     isHovered = false;
+    $selectedCat = null;
   }
 </script>
 
