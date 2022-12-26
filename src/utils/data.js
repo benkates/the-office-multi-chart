@@ -24,7 +24,6 @@ catData.map((_, i) => {
   Array.from({ length: num }, (e, f) => {
     nodes.push({
       id: it,
-      name: `Subcategory ${f + 1} / Category ${i + 1}`,
       group: i,
     });
     it++;
