@@ -1,0 +1,67 @@
+---
+title: "The Office Data"
+---
+
+
+```{r}
+library(tidyverse)
+library(tidytext)
+data(stop_words)
+```
+
+```{r}
+tokenized_data <- read_csv("data/the-office-lines - scripts.csv") %>% 
+    filter(!deleted) %>% 
+  select(speaker,line_text) %>% 
+  unnest_tokens(word, line_text)
+
+top_speaker_list <- c("Michael","Dwight","Jim","Andy","Pam","Angela","Kevin","Erin","Ryan","Oscar","Darryl","Kelly")
+
+#wordcount including stop words
+most_words_character <- tokenized_data %>% 
+  # anti_join(stop_words) %>% 
+  group_by(speaker) %>% 
+  count(sort = T)
+
+#sentiment without stopwords
+sentiment_character <-
+  tokenized_data %>% 
+  anti_join(stop_words) %>%
+  filter(speaker %in% top_speaker_list) %>% 
+  left_join(get_sentiments("bing")) %>% 
+    mutate(sentiment=replace_na(sentiment,"neutral")) %>% 
+  count(speaker,sentiment) %>% 
+   pivot_wider(names_from = sentiment, values_from = n) %>% 
+    mutate(pos=positive/(positive+negative+neutral),neg=negative/(positive+negative+neutral)) %>% 
+    select(speaker,pos,neg)
+  
+  
+  #afinn
+# tokenized_data %>% 
+#   filter(speaker %in% top_speaker_list) %>% 
+#   anti_join(stop_words) %>%
+#   inner_join(get_sentiments("afinn")) %>% 
+#   # mutate(value=replace_na(value,0)) %>% 
+#   group_by(speaker) %>% 
+#   summarize(value = mean(value))
+
+tokenized_data %>% 
+    filter(speaker %in% top_speaker_list) %>% 
+  filter(word %in% str_to_lower(top_speaker_list)) %>% 
+  count(speaker,word,sort=T) %>% 
+  mutate(word = str_to_title(word))
+
+#catData
+#name, pos, neg, count
+
+#networkData
+#nodes
+#id, group
+
+#links
+#source (id), target (id), value
+
+
+```
+
+

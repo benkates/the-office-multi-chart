@@ -1,5 +1,5 @@
 <!--
-  a lot of this code has been copied from Mark Hughes (happybeing) - cheers to you!
+  a lot of this code has been adapted from Mark Hughes (@happybeing) - cheers to you!
 
   https://github.com/happybeing/d3-fdg-svelte/blob/master/src/NetworkGraphSvelteSVG.svelte 
 -->
@@ -149,9 +149,11 @@
           }}
           on:mouseleave={(e) => {
             tooltip.mouseLeave(e);
+            hoveredData = null;
           }}
           on:blur={(e) => {
             tooltip.mouseLeave(e);
+            hoveredData = null;
           }}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >

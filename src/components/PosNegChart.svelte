@@ -102,9 +102,11 @@
             on:mousemove={tooltip.mouseMove}
             on:mouseleave={(e) => {
               tooltip.mouseLeave(e);
+              hoveredData = null;
             }}
             on:blur={(e) => {
               tooltip.mouseLeave(e);
+              hoveredData = null;
             }}
             on:keydown={(e) => clickFun(e, i, marker)}
             on:click={(e) => {
@@ -139,9 +141,11 @@
             on:mousemove={tooltip.mouseMove}
             on:mouseleave={(e) => {
               tooltip.mouseLeave(e);
+              hoveredData = null;
             }}
             on:blur={(e) => {
               tooltip.mouseLeave(e);
+              hoveredData = null;
             }}
             on:keydown={(e) => clickFun(e, i, marker)}
             on:click={(e) => clickFun(e, i, marker)}
