@@ -37,9 +37,9 @@
     <br />
     <span>Word Count: {format(",")(data.count)}</span>
     <br />
-    <span>Positive: {format(".01%")(data.pos)}</span>
-    <br />
     <span>Negative: {format(".01%")(data.neg)}</span>
+    <br />
+    <span>Positive: {format(".01%")(data.pos)}</span>
   </div>
 {/if}
 

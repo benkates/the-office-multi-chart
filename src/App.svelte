@@ -2,11 +2,16 @@
   import { schemePaired } from "d3"; //shows as not used, see <style>
   import PosNegChart from "./components/PosNegChart.svelte";
   import CatCountChart from "./components/CatCountChart.svelte";
-  import { networkData, fullText } from "./utils/data";
+  import { fullText } from "./utils/data";
   import ForceChart from "./components/ForceChart.svelte";
   import marker from "./utils/mark";
 
   import catData from "./data/nodes.json";
+  import links from "./data/links.json";
+  let nodes = catData.map((e, i) => {
+    return { id: e.name, group: e.name, name: e.name };
+  });
+  let networkData = { nodes, links };
 
   import {
     Col,
@@ -23,6 +28,11 @@
 
   import "iconify-icon";
   import TextResetButton from "./utils/TextResetButton.svelte";
+  import CharSelect from "./utils/CharSelect.svelte";
+
+  import { selectedTranscript } from "./utils/stores";
+  import { scripts } from "./data/scripts";
+  console.log(scripts);
 
   let style = schemePaired
     .map((e, i) => {
@@ -53,9 +63,9 @@
         <Card>
           <CardHeader
             ><CardTitle
-              ><iconify-icon inline icon="ic:outline-category" /> What does
-              <strong>count</strong> look like by
-              <strong>category?</strong></CardTitle
+              ><iconify-icon inline icon="mdi:person-tie" /> What does
+              <strong>word count</strong> look like by
+              <strong>character?</strong></CardTitle
             ></CardHeader
           >
           <CardBody>
@@ -70,10 +80,14 @@
             <CardTitle
               ><iconify-icon inline icon="ic:sharp-sentiment-very-satisfied" />
               What does <strong>sentiment</strong> look like?
-              <span class="inline-label" style="background:red;">negative</span>
-              vs.
-              <span class="inline-label" style="background:darkblue;"
-                >positive</span
+              <span style="font-size:0.85em"
+                ><span class="inline-label" style="background:red;"
+                  >negative</span
+                >
+                vs.
+                <span class="inline-label" style="background:darkblue;"
+                  >positive</span
+                ></span
               ></CardTitle
             >
           </CardHeader>
@@ -90,10 +104,9 @@
         <Card>
           <CardHeader>
             <CardTitle
-              ><iconify-icon inline icon="fa6-solid:circle-nodes" /> What does
-              the
-              <strong>network</strong> look like by
-              <strong>category?</strong></CardTitle
+              ><iconify-icon inline icon="fa6-solid:circle-nodes" /> Which
+              character is <strong>referencing</strong> others by
+              <strong>name</strong>?</CardTitle
             >
           </CardHeader>
           <CardBody>
@@ -113,15 +126,23 @@
                 inline
                 icon="material-symbols:text-snippet-outline-sharp"
               />
-              Random <strong>text highlight</strong> based on
-              <strong>category</strong>
+              Select a <strong>character from the dropdown</strong> to view the
+              episode in which they <strong>speak the most</strong><br />
+              <CharSelect />
               <TextResetButton {marker} /></CardTitle
             ></CardHeader
           >
           <CardBody id="text-container">
             <OnMountComp>
               <div transition:fade={{ duration: 1250 }}>
-                {@html fullText}
+                <h2>
+                  {@html scripts.filter(
+                    (d) => d.character === $selectedTranscript
+                  )[0].episode}
+                </h2>
+                {@html scripts.filter(
+                  (d) => d.character === $selectedTranscript
+                )[0].text}
               </div>
             </OnMountComp>
           </CardBody>

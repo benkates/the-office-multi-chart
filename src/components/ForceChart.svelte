@@ -69,9 +69,9 @@
         d3
           .forceLink(links)
           .id((d) => d.id)
-          .distance(30)
+          .distance(150)
       )
-      .force("charge", d3.forceManyBody().strength(-10))
+      .force("charge", d3.forceManyBody().strength(-150))
       .force("center", d3.forceCenter(width / 2, height / 2))
       .on("tick", simulationUpdate);
 
@@ -102,15 +102,16 @@
           x2={link.target.x}
           y2={link.target.y}
           opacity={$selectedCat === null
+            ? 0.2
+            : $selectedCat === link.source.index
             ? 1
-            : $selectedCat === link.source.group
-            ? 1
-            : 0.35}
-          stroke-width={$selectedCat === null
+            : 0.2}
+          stroke-width={/* $selectedCat === null
             ? 1.5
-            : $selectedCat === link.source.group
+            : $selectedCat === link.source.index
             ? 2.5
-            : 1.5}
+          : 1.5*/
+          link.value / 25}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >
           <title>{link.source.id}</title>
@@ -119,33 +120,29 @@
     {/each}
 
     <g>
-      {#each nodes as point}
+      {#each nodes as point, i}
         <!-- circle including animated features -->
         <circle
           class="node"
-          r={$selectedCat === null ? 5 : $selectedCat === point.group ? 7 : 5}
+          r={$selectedCat === null ? 10 : $selectedCat === i ? 15 : 10}
           fill={colourScale(point.group)}
           cx={point.x}
           cy={point.y}
-          opacity={$selectedCat === null
-            ? 1
-            : $selectedCat === point.group
-            ? 1
-            : 0.55}
+          opacity={$selectedCat === null ? 1 : $selectedCat === i ? 1 : 0.55}
           tabIndex="0"
           on:click={(d) => {
-            clickFun(d, point.group, marker);
+            clickFun(d, i, marker);
           }}
           on:keydown={(d) => {
-            clickFun(d, point.group, marker);
+            clickFun(d, i, marker);
           }}
           on:mouseover={(e) => {
-            tooltip.mouseOver(e, point.group);
-            hoveredData = catData[point.group];
+            tooltip.mouseOver(e, i);
+            hoveredData = catData[i];
           }}
           on:focus={(e) => {
-            tooltip.mouseOver(e, point.group);
-            hoveredData = catData[point.group];
+            tooltip.mouseOver(e, i);
+            hoveredData = catData[i];
           }}
           on:mouseleave={(e) => {
             tooltip.mouseLeave(e);
@@ -156,9 +153,7 @@
             hoveredData = null;
           }}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
-        >
-          <title>Category: {point.group + 1}</title></circle
-        >
+        />
       {/each}
     </g>
   </svg>

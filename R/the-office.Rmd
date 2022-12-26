@@ -52,18 +52,9 @@ tokenized_data %>%
   
   jsonlite::write_json("../src/data/links.json")
 
-#catData
-#name, pos, neg, count
-
-#networkData
-#nodes
-#id, group
-
-#links
-#source (id), target (id), value
-
 
 ```
+
 ```{r}
   #afinn
 # tokenized_data %>% 
@@ -76,4 +67,20 @@ tokenized_data %>%
 ```
 
 
+
+```{r}
+tokenized_data_full <- read_csv("data/the-office-lines - scripts.csv") %>% 
+    filter(!deleted) %>% 
+  unnest_tokens(word, line_text)
+
+tokenized_data_full %>% 
+  filter(speaker %in% top_speaker_list) %>% 
+  mutate(season_episode = paste0(season,"_",episode)) %>% 
+  group_by(speaker,season_episode) %>% 
+  count(sort=T) %>% 
+  
+  ungroup() %>% 
+  group_by(speaker) %>% 
+  slice(1:1)
+```
 
