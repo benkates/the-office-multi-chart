@@ -14,12 +14,8 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 - [ ] the office data
 
-  - [ ] categorical: number of words spoken per character
-  - [ ] sentiment: sentiment of characters words
-  - [ ] force: character relationships?
-  - [ ] table: episode transcript where the character has the most words? then highlight the character's speaking
-    <!-- https://data.world/abhinavr8/the-office-scripts-dataset/workspace/file?filename=the-office-lines+-+scripts.csv -->
-    <!-- https://towardsdatascience.com/nlp-on-the-office-series-cf0ed44430d1 -->
+  - [ ] force, not in love with data/shape. the current model is to use the last link listed as the link (and it's only one side) - so would need something to combine
+  - [ ] put dropdown and button side-by-side
 
 - [x] button to reset highlighting
 - [x] check out multi-hover (hover on one, another chart lights up)

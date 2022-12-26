@@ -49,13 +49,13 @@
     <!-- header -->
     <h1 style="padding-top:10px">
       <iconify-icon inline icon="mdi:page-layout-header-footer" />
-      Multi-Chart Example (Svelte)
+      The Office Dataset Multi-Chart (Using Svelte!)
     </h1>
     <p style="font-style:italic;">
-      This is a proof of concept multi-chart tool using randomly generated data.
-      Hover on chart elements to toggle visibility among groups across charts.
-      <br />Click on a category to highlight some random text below. Happy
-      exploring!
+      This is a proof of concept multi-chart tool using The Office TV show
+      transcripts. Hover on chart elements to toggle prominence across charts.
+      <br />Click on a character to highlight their name in the transcript below
+      the charts!
     </p>
     <!-- category, CatCountChart -->
     <Row noGutters={false} class="gy-3">
@@ -128,11 +128,17 @@
               />
               Select a <strong>character from the dropdown</strong> to view the
               episode in which they <strong>speak the most</strong><br />
-              <CharSelect />
-              <TextResetButton {marker} /></CardTitle
-            ></CardHeader
-          >
-          <CardBody id="text-container">
+              <Row style="padding-top:5px"
+                ><Col xs="8" lg="6">
+                  <CharSelect />
+                </Col>
+                <Col xs="4" lg="6" style="padding-top:4px">
+                  <TextResetButton {marker} /></Col
+                ></Row
+              >
+            </CardTitle>
+          </CardHeader>
+          <CardBody id="text-container" style="height:400px;overflow-y:auto;">
             <OnMountComp>
               <div transition:fade={{ duration: 1250 }}>
                 <h2>
