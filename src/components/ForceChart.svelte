@@ -6,8 +6,8 @@
 <script>
   import { onMount } from "svelte";
   import { scaleLinear, scaleOrdinal } from "d3-scale";
+  import { schemePaired } from "d3";
   import { zoom, zoomIdentity } from "d3-zoom";
-  import { schemeCategory10 } from "d3-scale-chromatic";
   import { select, selectAll } from "d3-selection";
   import { drag } from "d3-drag";
   import {
@@ -21,7 +21,7 @@
     zoomIdentity,
     scaleLinear,
     scaleOrdinal,
-    schemeCategory10,
+    schemePaired,
     select,
     selectAll,
     drag,
@@ -47,7 +47,7 @@
   const nodeRadius = 5;
   $: links = networkData.links.map((d) => Object.create(d));
   $: nodes = networkData.nodes.map((d) => Object.create(d));
-  const colourScale = d3.scaleOrdinal(d3.schemeCategory10);
+  const colourScale = d3.scaleOrdinal(d3.schemePaired);
   let transform = d3.zoomIdentity;
   let simulation;
 

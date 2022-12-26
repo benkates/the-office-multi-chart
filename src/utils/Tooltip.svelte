@@ -35,11 +35,11 @@
   >
     <span><strong>{data.name}</strong></span>
     <br />
-    <span>Count: {data.count}</span>
+    <span>Word Count: {format(",")(data.count)}</span>
     <br />
-    <span>Positive: {format(".0%")(data.pos)}</span>
+    <span>Positive: {format(".01%")(data.pos)}</span>
     <br />
-    <span>Negative: {format(".0%")(data.neg)}</span>
+    <span>Negative: {format(".01%")(data.neg)}</span>
   </div>
 {/if}
 

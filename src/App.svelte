@@ -1,10 +1,12 @@
 <script>
-  import { schemeCategory10 } from "d3"; //shows as not used, see <style>
+  import { schemePaired } from "d3"; //shows as not used, see <style>
   import PosNegChart from "./components/PosNegChart.svelte";
   import CatCountChart from "./components/CatCountChart.svelte";
-  import { catData, networkData, fullText } from "./utils/data";
+  import { networkData, fullText } from "./utils/data";
   import ForceChart from "./components/ForceChart.svelte";
   import marker from "./utils/mark";
+
+  import catData from "./data/nodes.json";
 
   import {
     Col,
@@ -22,7 +24,7 @@
   import "iconify-icon";
   import TextResetButton from "./utils/TextResetButton.svelte";
 
-  let style = schemeCategory10
+  let style = schemePaired
     .map((e, i) => {
       return `.group-${i} {background-color: ${e}99;border-radius: 2px;}`;
     })

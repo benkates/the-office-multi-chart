@@ -1,4 +1,6 @@
 <script>
+  import { format } from "d3";
+
   export let catData;
   export let height;
   export let width;
@@ -8,7 +10,8 @@
 
   import { max, range } from "d3";
 
-  let xTicks = range(max(catData.map((e) => e.count + 1)));
+  // let maxVal = max(catData.map((e) => e.count + 1));
+  let xTicks = xScale.ticks(5);
   let yTicks = catData.map((e) => e.name);
 </script>
 
@@ -21,11 +24,11 @@
         font-size="12px"
       >
         <line stroke="lightgrey" y2={-height} />
-        <text fill="grey" dy="5" text-anchor="middle">{tick}</text>
+        <text fill="grey" dy="5" text-anchor="middle">{format(",")(tick)}</text>
       </g>
     {/each}
   </g>
-  <g id="axis-y" transform="translate(0, 0)">
+  <g id="axis-y" transform="translate(-5, 0)">
     {#each yTicks as tick}
       <g
         transform="translate({margin.left}, {yScale(tick) +

@@ -19,11 +19,11 @@ top_speaker_list <- c("Michael","Dwight","Jim","Andy","Pam","Angela","Kevin","Er
 
 #wordcount including stop words
 most_words_character <- tokenized_data %>% 
-  # anti_join(stop_words) %>% 
+  filter(speaker %in% top_speaker_list) %>% 
   group_by(speaker) %>% 
-  count(sort = T)
+  count(sort = T,name="count")
 
-#sentiment without stopwords
+#sentiment without stopwords but including neutral words
 sentiment_character <-
   tokenized_data %>% 
   anti_join(stop_words) %>%
@@ -32,24 +32,25 @@ sentiment_character <-
     mutate(sentiment=replace_na(sentiment,"neutral")) %>% 
   count(speaker,sentiment) %>% 
    pivot_wider(names_from = sentiment, values_from = n) %>% 
-    mutate(pos=positive/(positive+negative+neutral),neg=negative/(positive+negative+neutral)) %>% 
+    mutate(pos=positive/(positive+negative+neutral),neg=(negative/(positive+negative+neutral))*-1) %>% 
     select(speaker,pos,neg)
-  
-  
-  #afinn
-# tokenized_data %>% 
-#   filter(speaker %in% top_speaker_list) %>% 
-#   anti_join(stop_words) %>%
-#   inner_join(get_sentiments("afinn")) %>% 
-#   # mutate(value=replace_na(value,0)) %>% 
-#   group_by(speaker) %>% 
-#   summarize(value = mean(value))
 
+most_words_character %>% 
+  left_join(sentiment_character) %>% 
+  rename(name=speaker) %>% 
+  jsonlite::write_json("../src/data/nodes.json")
+```
+
+
+```{r}
 tokenized_data %>% 
     filter(speaker %in% top_speaker_list) %>% 
   filter(word %in% str_to_lower(top_speaker_list)) %>% 
   count(speaker,word,sort=T) %>% 
-  mutate(word = str_to_title(word))
+  mutate(word = str_to_title(word)) %>% 
+  rename(source=speaker,target=word,value=n) %>% 
+  
+  jsonlite::write_json("../src/data/links.json")
 
 #catData
 #name, pos, neg, count
@@ -63,5 +64,16 @@ tokenized_data %>%
 
 
 ```
+```{r}
+  #afinn
+# tokenized_data %>% 
+#   filter(speaker %in% top_speaker_list) %>% 
+#   anti_join(stop_words) %>%
+#   inner_join(get_sentiments("afinn")) %>% 
+#   # mutate(value=replace_na(value,0)) %>% 
+#   group_by(speaker) %>% 
+#   summarize(value = mean(value))
+```
+
 
 

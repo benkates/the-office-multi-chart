@@ -6,9 +6,11 @@
   export let xFullScale;
   export let yScale;
 
+  export let scaleMax;
+
   import { format } from "d3";
 
-  let xTicks = [-1, -0.5, 0, 0.5, 1];
+  let xTicks = [-scaleMax, -scaleMax / 2, 0, scaleMax / 2, scaleMax];
   let yTicks = catData.map((e) => e.name);
 </script>
 
@@ -22,12 +24,12 @@
       >
         <line stroke="lightgrey" y2={-height} />
         <text fill="grey" dy="5" text-anchor="middle"
-          >{format(",.0%")(tick)}</text
+          >{format(",.01%")(tick)}</text
         >
       </g>
     {/each}
   </g>
-  <g id="axis-y" transform="translate(0, 0)">
+  <g id="axis-y" transform="translate(-5, 0)">
     {#each yTicks as tick}
       <g
         transform="translate({margin.left}, {yScale(tick) +

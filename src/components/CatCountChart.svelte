@@ -1,5 +1,5 @@
 <script>
-  import { schemeCategory10, max } from "d3";
+  import { schemePaired, max } from "d3";
   import { scaleLinear, scaleBand, scaleOrdinal } from "d3-scale";
   import CatCountChartAxis from "./CatCountChartAxis.svelte";
 
@@ -36,7 +36,7 @@
   //setup color scale
   const colorScale = scaleOrdinal(
     catData.map((e) => e.name),
-    schemeCategory10
+    schemePaired
   );
 
   //tween animation

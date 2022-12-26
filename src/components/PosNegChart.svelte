@@ -18,15 +18,16 @@
   let width = 400;
   let height = 400;
   let margin = marginFun(width, height);
+  let scaleMax = 0.12;
 
   //setup x positive scale
   $: xPosScale = scaleLinear()
-    .domain([0, 1])
+    .domain([0, scaleMax])
     .rangeRound([0, width / 2 - margin.right / 2 - margin.left / 2]);
 
   //setup x negative scale
   $: xNegScale = scaleLinear()
-    .domain([0, -1])
+    .domain([0, -scaleMax])
     .rangeRound([0, width / 2 - margin.right / 2 - margin.left / 2]);
 
   //setup y scale
@@ -37,7 +38,7 @@
 
   //setup full scale for axis
   $: xFullScale = scaleLinear()
-    .domain([-1, 1])
+    .domain([-scaleMax, scaleMax])
     .rangeRound([margin.left, width - margin.right]);
 
   //setup animation
@@ -73,6 +74,7 @@
         {margin}
         {xFullScale}
         {yScale}
+        {scaleMax}
       />
       <!-- negative rect group -->
       <g id="negGroup">
