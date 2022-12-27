@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 .Rproj.user
 R/data/
+R/.Rhistory

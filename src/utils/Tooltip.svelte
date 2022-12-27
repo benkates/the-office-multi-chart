@@ -35,7 +35,7 @@
   >
     <span><strong>{data.name}</strong></span>
     <br />
-    <span>Word Count: {format(",")(data.count)}</span>
+    <span>Ttl Word Count: {format(",")(data.count)}</span>
     <br />
     <span>Negative: {format(".01%")(data.neg)}</span>
     <br />
