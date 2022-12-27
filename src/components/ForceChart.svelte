@@ -74,14 +74,8 @@
       : null;
 
   $: headlineOutput = headline
-    ? `<span class="group-${chars.indexOf(headline.source.id)}">
-      ${headline.source.id}</span>
-      has said the name <span class="group-${chars.indexOf(
-        headline.target.id
-      )}">
-      ${headline.target.id}</span>
-      <span style="font-weight:bold;">${headline.value} times</span>`
-    : `<span style="font-style:italic;">Hover/select a character to view relationships</span>`;
+    ? [headline.source.id, headline.target.id, headline.value]
+    : null;
 
   //setup fade animation using tweened()
   //OnMountComp component does not work since there is other onMount funs going on
@@ -121,15 +115,33 @@
 </script>
 
 <div bind:clientWidth={width}>
-  {#key headlineOutput}
-    <div in:fade={{ duration: 1000 }}>
-      {@html `<div>${headlineOutput}</div>`}
-    </div>
-  {/key}
   <!-- tooltip -->
   <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="3" {isHovered} />
   <!-- svg -->
   <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
+    {#key headlineOutput}
+      <g id="headline" transition:fade={{ duration: 500 }}>
+        <text x="5" y="15">
+          {#if headlineOutput}
+            <tspan
+              fill={$selectedCat === 10 ? "grey" : schemePaired[$selectedCat]}
+              text-decoration="underline"
+              font-weight="bold">{headlineOutput[0]}</tspan
+            >
+            <tspan> has said the name </tspan>
+            <tspan
+              fill={schemePaired[chars.indexOf(headlineOutput[1])]}
+              text-decoration="underline"
+              font-weight="bold"
+              >{headlineOutput[1]}
+            </tspan>
+            <tspan style="font-weight:bold;">{headlineOutput[2]} times</tspan>
+          {:else}<tspan font-style="italic"
+              >Hover/select a character to see relationships</tspan
+            >{/if}
+        </text></g
+      >
+    {/key}
     {#each links as link, i}
       <g stroke="#999" stroke-opacity="0.75">
         <!-- line including animated opacity -->
@@ -166,6 +178,8 @@
             : $selectedCat === i
             ? nodeRadius
             : nodeRadius * (2 / 3)}
+          stroke="lightgrey"
+          stroke-width="1"
           fill={colourScale(point.group)}
           cx={point.x}
           cy={point.y}
@@ -205,8 +219,6 @@
     float: left;
   }
   circle {
-    stroke: #fff;
-    stroke-width: 1.5;
     cursor: pointer;
     transition: opacity 500ms ease, r 500ms ease;
   }
