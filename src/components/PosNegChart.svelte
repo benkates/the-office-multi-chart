@@ -6,7 +6,7 @@
   import clickFun from "../utils/clickFun";
   import OnMountComp from "../utils/OnMountComp.svelte";
   import marker from "../utils/mark";
-  import { selectedCat } from "../utils/stores";
+  import { selectedChar } from "../utils/stores";
 
   import { tweened } from "svelte/motion";
   import * as easings from "svelte/easing";
@@ -88,9 +88,9 @@
             width={xNegScale(d.neg) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={"red"}
-            opacity={$selectedCat === null && !hoveredData
+            opacity={$selectedChar === null && !hoveredData
               ? 1
-              : hoveredData === d || $selectedCat === i
+              : hoveredData === d || $selectedChar === i
               ? 1
               : 0.55}
             on:focus={(e) => {
@@ -126,9 +126,9 @@
             width={xPosScale(d.pos) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={"darkblue"}
-            opacity={$selectedCat === null && !hoveredData
+            opacity={$selectedChar === null && !hoveredData
               ? 1
-              : hoveredData === d || $selectedCat === i
+              : hoveredData === d || $selectedChar === i
               ? 1
               : 0.55}
             data-value={i}

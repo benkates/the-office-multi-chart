@@ -46,14 +46,21 @@
   <Container>
     <!-- header -->
     <h1 style="padding-top:10px">
-      <iconify-icon inline icon="mdi:page-layout-header-footer" />
-      The Office Dataset Multi-Chart (Using Svelte!)
+      <img
+        src="the-office-logo.png"
+        alt="The Office"
+        width="180em"
+        style="display:inline;vertical-align:middle;padding-bottom:0.25em"
+      />
+      Dataset Multi-Chart (Using Svelte!)
     </h1>
+    <p style="font-style:italic;">by Ben Kates / Dec 2022</p>
     <p style="font-style:italic;">
       This is a proof of concept multi-chart tool using The Office TV show
       transcripts. Hover on chart elements to toggle prominence across charts.
-      <br />Click on a character to highlight their name in the transcript below
-      the charts!
+      <br /><strong
+        >Click on a character to highlight their name in the transcript!</strong
+      >
     </p>
     <!-- category, CatCountChart -->
     <Row noGutters={false} class="gy-3">
@@ -112,11 +119,7 @@
           </CardBody>
         </Card>
       </Col>
-    </Row>
-    <br />
-    <!-- text,fullText -->
-    <Row noGutters={false} class="gy-3">
-      <Col lg="12">
+      <Col lg="6">
         <Card>
           <CardHeader
             ><CardTitle
@@ -136,7 +139,7 @@
               >
             </CardTitle>
           </CardHeader>
-          <CardBody id="text-container" style="height:400px;overflow-y:auto;">
+          <CardBody id="text-container" style="height:350px;overflow-y:auto;">
             <OnMountComp>
               <div transition:fade={{ duration: 1250 }}>
                 <h2>

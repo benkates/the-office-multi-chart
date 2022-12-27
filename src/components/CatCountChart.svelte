@@ -7,7 +7,7 @@
   import Tooltip from "../utils/Tooltip.svelte";
   import OnMountComp from "../utils/OnMountComp.svelte";
   import clickFun from "../utils/clickFun";
-  import { selectedCat } from "../utils/stores";
+  import { selectedChar } from "../utils/stores";
   import marker from "../utils/mark";
 
   import { tweened } from "svelte/motion";
@@ -83,9 +83,9 @@
             width={(xScale(d.count) - margin.left) * $tweenedRect}
             height={yScale.bandwidth()}
             fill={colorScale(d.name)}
-            opacity={$selectedCat === null && !hoveredData
+            opacity={$selectedChar === null && !hoveredData
               ? 1
-              : hoveredData === d || $selectedCat === i
+              : hoveredData === d || $selectedChar === i
               ? 1
               : 0.55}
             on:focus={(e) => {

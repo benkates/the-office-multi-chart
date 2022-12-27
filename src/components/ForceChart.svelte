@@ -36,7 +36,7 @@
 
   import clickFun from "../utils/clickFun";
   import Tooltip from "../utils/Tooltip.svelte";
-  import { selectedCat } from "../utils/stores";
+  import { selectedChar } from "../utils/stores";
 
   import marker from "../utils/mark";
   import ForceChartHeadline from "./ForceChartHeadline.svelte";
@@ -46,7 +46,8 @@
   let svg;
   let width = 500;
   let height = 400;
-  const nodeRadius = 13;
+  const nodeRadius = 20;
+  const strength = -350;
   $: links = networkData.links;
   $: nodes = networkData.nodes;
   const colourScale = d3.scaleOrdinal(d3.schemePaired);
@@ -55,9 +56,9 @@
 
   // create headline text/output
   $: headline =
-    $selectedCat >= 0 && $selectedCat !== null
+    $selectedChar >= 0 && $selectedChar !== null
       ? networkData.links.filter(
-          (d) => d.source.id === characters[$selectedCat]
+          (d) => d.source.id === characters[$selectedChar]
         )[0]
       : null;
 
@@ -85,7 +86,7 @@
           .id((d) => d.id)
           .distance(150)
       )
-      .force("charge", d3.forceManyBody().strength(-150))
+      .force("charge", d3.forceManyBody().strength(strength))
       .force("center", d3.forceCenter(width / 2, height / 2))
       .on("tick", simulationUpdate);
 
@@ -107,7 +108,7 @@
   <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="3" {isHovered} />
   <!-- svg -->
   <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
-    <ForceChartHeadline {headlineOutput} {selectedCat} />
+    <ForceChartHeadline {headlineOutput} {selectedChar} />
     {#each links as link, i}
       <g stroke="#999" stroke-opacity="0.75">
         <!-- line including animated opacity -->
@@ -116,14 +117,14 @@
           y1={link.source.y}
           x2={link.target.x}
           y2={link.target.y}
-          opacity={$selectedCat === null
-            ? 0.05
-            : $selectedCat === link.source.index
+          opacity={$selectedChar === null
+            ? 0.075
+            : $selectedChar === link.source.index
             ? 1
-            : 0.05}
-          stroke-width={/* $selectedCat === null
+            : 0.075}
+          stroke-width={/* $selectedChar === null
                         ? 1.5
-                        : $selectedCat === link.source.index
+                        : $selectedChar === link.source.index
                         ? 2.5
                       : 1.5*/
           link.value / 25}
@@ -139,9 +140,9 @@
         <!-- circle including animated features -->
         <circle
           class="node"
-          r={$selectedCat === null
+          r={$selectedChar === null
             ? nodeRadius * (2 / 3)
-            : $selectedCat === i
+            : $selectedChar === i
             ? nodeRadius
             : nodeRadius * (2 / 3)}
           stroke="lightgrey"
@@ -149,7 +150,7 @@
           fill={colourScale(point.group)}
           cx={point.x}
           cy={point.y}
-          opacity={$selectedCat === null ? 1 : $selectedCat === i ? 1 : 0.55}
+          opacity={$selectedChar === null ? 1 : $selectedChar === i ? 1 : 0.55}
           tabIndex="0"
           on:click={(d) => {
             clickFun(d, i, marker);
