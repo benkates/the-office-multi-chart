@@ -4,16 +4,21 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 ## TODO
 
-- [ ] force, not in love with data/shape. the current model is to use the last link listed as the link (and it's only one side) - so would need something to combine
-- [ ] fix titles, add notes
+- [ ] reword titles
+- [ ] add notes on data in the footer
 - [ ] comment some more
-- [ ] rename some vars (cat, etc.)
 - [ ] lower opacity just a touch globally
+- [ ] semantic html?
+
+## Backburner
+
 - [ ] can the tooltip contain a store? tooltip.hoveredData could be scoped to just that tooltip
   - [ ] backup would just be a global variable and the same as the selectedChar;
 - [ ] GH CI/CD - build/deploy in the cloud on push (is it expensive?)
 - [ ] check out skeleton UI (uses tailwind CSS)
 - [ ] [use tooltip as action ie: use:tooltip](https://svelte.dev/repl/dd6754a2ad0547c5b1c1ea37c0293fef?version=3.55.0) and [this video](https://www.youtube.com/watch?v=0GqIoo66i0g)
+
+## Completed
 
 - [x] put dropdown and button side-by-side
 - [x] button to reset highlighting

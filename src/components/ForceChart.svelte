@@ -42,7 +42,7 @@
   import ForceChartHeadline from "./ForceChartHeadline.svelte";
 
   export let networkData;
-  export let catData;
+  export let charData;
   let svg;
   let width = 500;
   let height = 400;
@@ -160,11 +160,11 @@
           }}
           on:mouseover={(e) => {
             tooltip.mouseOver(e, i);
-            hoveredData = catData[i];
+            hoveredData = charData[i];
           }}
           on:focus={(e) => {
             tooltip.mouseOver(e, i);
-            hoveredData = catData[i];
+            hoveredData = charData[i];
           }}
           on:mouseleave={(e) => {
             tooltip.mouseLeave(e);

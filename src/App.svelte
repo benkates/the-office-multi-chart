@@ -1,13 +1,13 @@
 <script>
   import { schemePaired } from "d3"; //shows as not used, see <style>
   import PosNegChart from "./components/PosNegChart.svelte";
-  import CatCountChart from "./components/CatCountChart.svelte";
+  import CharCountChart from "./components/CharCountChart.svelte";
   import ForceChart from "./components/ForceChart.svelte";
   import marker from "./utils/mark";
 
-  import catData from "./data/nodes.json";
+  import charData from "./data/nodes.json";
   import links from "./data/links.json";
-  let nodes = catData.map((e, i) => {
+  let nodes = charData.map((e, i) => {
     return { id: e.name, group: e.name, name: e.name };
   });
   let networkData = { nodes, links };
@@ -62,7 +62,7 @@
         >Click on a character to highlight their name in the transcript!</strong
       >
     </p>
-    <!-- category, CatCountChart -->
+    <!-- character, CharCountChart -->
     <Row noGutters={false} class="gy-3">
       <Col xs="12" lg="6">
         <Card>
@@ -74,7 +74,7 @@
             ></CardHeader
           >
           <CardBody>
-            <CatCountChart {catData} />
+            <CharCountChart {charData} />
           </CardBody>
         </Card>
       </Col>
@@ -97,7 +97,7 @@
             >
           </CardHeader>
           <CardBody>
-            <PosNegChart {catData} />
+            <PosNegChart {charData} />
           </CardBody>
         </Card>
       </Col>
@@ -115,7 +115,7 @@
             >
           </CardHeader>
           <CardBody>
-            <ForceChart {networkData} {catData} />
+            <ForceChart {networkData} {charData} />
           </CardBody>
         </Card>
       </Col>

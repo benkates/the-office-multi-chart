@@ -1,5 +1,5 @@
 <script>
-  export let catData;
+  export let charData;
   export let height;
   export let width;
   export let margin;
@@ -11,7 +11,7 @@
   import { format } from "d3";
 
   let xTicks = [-scaleMax, -scaleMax / 2, 0, scaleMax / 2, scaleMax];
-  let yTicks = catData.map((e) => e.name);
+  let yTicks = charData.map((e) => e.name);
 </script>
 
 <g id="axes">

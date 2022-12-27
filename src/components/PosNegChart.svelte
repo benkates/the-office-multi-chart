@@ -12,7 +12,7 @@
   import * as easings from "svelte/easing";
   import { fade } from "svelte/transition";
 
-  export let catData;
+  export let charData;
 
   let hoveredData;
   let width = 400;
@@ -32,7 +32,7 @@
 
   //setup y scale
   $: yScale = scaleBand()
-    .domain(catData.map((e) => e.name))
+    .domain(charData.map((e) => e.name))
     .rangeRound([margin.top, height - margin.bottom])
     .paddingInner(0.25);
 
@@ -68,7 +68,7 @@
     <svg {height} {width}>
       <!-- axis -->
       <PosNegChartAxis
-        {catData}
+        {charData}
         {width}
         {height}
         {margin}
@@ -78,7 +78,7 @@
       />
       <!-- negative rect group -->
       <g id="negGroup">
-        {#each catData as d, i}
+        {#each charData as d, i}
           <rect
             x={width / 2 +
               margin.left / 2 -
@@ -119,7 +119,7 @@
       </g>
       <!-- positive rect group -->
       <g id="posGroup">
-        {#each catData as d, i}
+        {#each charData as d, i}
           <rect
             x={width / 2 + margin.left / 2 - margin.right / 2}
             y={yScale(d.name)}

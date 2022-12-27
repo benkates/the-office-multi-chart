@@ -1,7 +1,7 @@
 <script>
   import { format } from "d3";
 
-  export let catData;
+  export let charData;
   export let height;
   export let width;
   export let margin;
@@ -10,9 +10,9 @@
 
   import { max, range } from "d3";
 
-  // let maxVal = max(catData.map((e) => e.count + 1));
+  // let maxVal = max(charData.map((e) => e.count + 1));
   let xTicks = xScale.ticks(5);
-  let yTicks = catData.map((e) => e.name);
+  let yTicks = charData.map((e) => e.name);
 </script>
 
 <g id="axes">

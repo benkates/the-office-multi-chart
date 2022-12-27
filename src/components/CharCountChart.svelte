@@ -1,7 +1,7 @@
 <script>
   import { schemePaired, max } from "d3";
   import { scaleLinear, scaleBand, scaleOrdinal } from "d3-scale";
-  import CatCountChartAxis from "./CatCountChartAxis.svelte";
+  import CharCountChartAxis from "./CharCountChartAxis.svelte";
 
   import marginFun from "../utils/margin";
   import Tooltip from "../utils/Tooltip.svelte";
@@ -14,7 +14,7 @@
   import * as easings from "svelte/easing";
   import { fade } from "svelte/transition";
 
-  export let catData;
+  export let charData;
 
   let hoveredData;
   let width = 400;
@@ -24,18 +24,18 @@
 
   //setup x positive scale
   $: xScale = scaleLinear()
-    .domain([0, max(catData, (d) => d.count)])
+    .domain([0, max(charData, (d) => d.count)])
     .rangeRound([margin.left, width - margin.right]);
 
   //setup y scale
   $: yScale = scaleBand()
-    .domain(catData.map((e) => e.name))
+    .domain(charData.map((e) => e.name))
     .rangeRound([margin.top, height - margin.bottom])
     .paddingInner(0.25);
 
   //setup color scale
   const colorScale = scaleOrdinal(
-    catData.map((e) => e.name),
+    charData.map((e) => e.name),
     schemePaired
   );
 
@@ -66,17 +66,17 @@
     <!--svg-->
     <svg {width} {height}>
       <!--axis-->
-      <CatCountChartAxis
-        {catData}
+      <CharCountChartAxis
+        {charData}
         {width}
         {height}
         {margin}
         {xScale}
         {yScale}
       />
-      <!--category rect group-->
-      <g id="catGroup">
-        {#each catData as d, i}
+      <!--character rect group-->
+      <g id="charGroup">
+        {#each charData as d, i}
           <rect
             x={xScale(0)}
             y={yScale(d.name)}
