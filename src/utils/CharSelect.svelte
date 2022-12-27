@@ -10,7 +10,7 @@
   });
 </script>
 
-<FormGroup>
+<FormGroup style="margin-bottom:0 !important;">
   <Input
     type="select"
     name="select"

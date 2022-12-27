@@ -4,11 +4,12 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 ## TODO
 
-- [ ] reword titles
-- [ ] add notes on data in the footer
 - [ ] comment some more
 - [ ] lower opacity just a touch globally
 - [ ] semantic html?
+- [ ] more interesting background?
+- [ ] mark can happen more than once
+- [ ] opengraph
 
 ## Backburner
 

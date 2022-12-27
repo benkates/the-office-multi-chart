@@ -20,6 +20,7 @@
     CardBody,
     CardHeader,
     CardTitle,
+    CardSubtitle,
   } from "sveltestrap";
 
   import OnMountComp from "./utils/OnMountComp.svelte";
@@ -56,8 +57,11 @@
     </h1>
     <p style="font-style:italic;">by Ben Kates / Dec 2022</p>
     <p style="font-style:italic;">
-      This is a proof of concept multi-chart tool using The Office TV show
-      transcripts. Hover on chart elements to toggle prominence across charts.
+      This is a proof of concept multi-chart tool using <a
+        href="https://data.world/abhinavr8/the-office-scripts-dataset"
+        target="_blank"
+        rel="noreferrer">The Office TV show transcripts</a
+      >. Hover on chart elements to toggle prominence across charts.
       <br /><strong
         >Click on a character to highlight their name in the transcript!</strong
       >
@@ -74,6 +78,9 @@
             ></CardHeader
           >
           <CardBody>
+            <CardSubtitle style="font-style:italic; color:grey;"
+              >All data based on 201 regular episodes over 9 seasons</CardSubtitle
+            >
             <CharCountChart {charData} />
           </CardBody>
         </Card>
@@ -97,6 +104,14 @@
             >
           </CardHeader>
           <CardBody>
+            <CardSubtitle style="font-style:italic; color:grey;"
+              >Based on <a
+                href="https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html"
+                target="_blank"
+                rel="noreferrer"
+                style="color:grey;">Bing lexicon</a
+              >; words outside of lexicon counted as neutral</CardSubtitle
+            >
             <PosNegChart {charData} />
           </CardBody>
         </Card>
@@ -105,12 +120,12 @@
     <br />
     <Row noGutters={false} class="gy-3 justify-content-center">
       <!-- force, ForceChart -->
-      <Col xs="12" lg="6">
+      <Col xs="12" lg="8">
         <Card>
           <CardHeader>
             <CardTitle
               ><iconify-icon inline icon="fa6-solid:circle-nodes" /> Which
-              character is <strong>referencing</strong> others by
+              character is <strong>talking about</strong> others by
               <strong>name</strong>?</CardTitle
             >
           </CardHeader>
@@ -119,7 +134,9 @@
           </CardBody>
         </Card>
       </Col>
-      <Col lg="6">
+    </Row>
+    <Row noGutters={false} class="gy-3" style="padding-top:25px"
+      ><Col xs="12">
         <Card>
           <CardHeader
             ><CardTitle
@@ -129,17 +146,17 @@
               />
               Select a <strong>character from the dropdown</strong> to view the
               episode in which they <strong>speak the most</strong><br />
-              <Row style="padding-top:5px"
-                ><Col xs="8" lg="4">
+              <Row style="padding-top:5px;"
+                ><Col md="8" lg="3">
                   <CharSelect />
                 </Col>
-                <Col xs="4" lg="8" style="padding-top:4px">
+                <Col md="4" lg="9" style="padding-top:4px">
                   <TextResetButton {marker} /></Col
                 ></Row
               >
             </CardTitle>
           </CardHeader>
-          <CardBody id="text-container" style="height:350px;overflow-y:auto;">
+          <CardBody id="text-container" style="height:400px;overflow-y:auto;">
             <OnMountComp>
               <div transition:fade={{ duration: 1250 }}>
                 <h2>
@@ -150,12 +167,13 @@
                 {@html scripts.filter(
                   (d) => d.character === $selectedTranscript
                 )[0].text}
+                <div id="fade" />
               </div>
             </OnMountComp>
           </CardBody>
         </Card>
-      </Col>
-    </Row>
+      </Col></Row
+    >
     <br />
     <p style="text-align:center; font-style:italic;">
       Find the code on <a
@@ -179,5 +197,19 @@
     border-radius:4px;
     font-weight:bold;
   }
+  #fade {
+    position: absolute;
+    bottom: 0px;
+
+    display: block;
+  
+    width: 100%;
+    height: 75px;
+  
+    background-image: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0), 
+        rgba(255, 255, 255, 0.9)
+    100%);
+}
   ${style}
 </style>`}

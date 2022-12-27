@@ -62,10 +62,6 @@
         )[0]
       : null;
 
-  $: headlineOutput = headline
-    ? [headline.source.id, headline.target.id, headline.value]
-    : null;
-
   //setup fade animation using tweened()
   //OnMountComp component does not work since there is other onMount funs going on
   const tweenedVal = tweened(0, {
@@ -108,7 +104,6 @@
   <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="3" {isHovered} />
   <!-- svg -->
   <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
-    <ForceChartHeadline {headlineOutput} {selectedChar} />
     {#each links as link, i}
       <g stroke="#999" stroke-opacity="0.75">
         <!-- line including animated opacity -->
@@ -178,6 +173,7 @@
         />
       {/each}
     </g>
+    <ForceChartHeadline {headline} {selectedChar} />
   </svg>
 </div>
 

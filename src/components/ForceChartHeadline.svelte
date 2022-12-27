@@ -1,6 +1,10 @@
 <script>
-  export let headlineOutput;
+  export let headline;
   export let selectedChar;
+
+  $: headlineOutput = headline
+    ? [headline.source.id, headline.target.id, headline.value]
+    : null;
 
   import { characters } from "../data/characters";
   import { fade } from "svelte/transition";
@@ -9,9 +13,9 @@
 
 {#key headlineOutput}
   <g id="headline" transition:fade={{ duration: 500 }}>
-    <text x="5" y="15">
-      <!-- if there is non-null data, render the headline -->
-      {#if headlineOutput}
+    <!-- if there is non-null data, render the headline -->
+    {#if headlineOutput}
+      <text x="0" y="16" font-size="20">
         <!-- account for the yellow in the pallette -->
         <tspan
           fill={$selectedChar === 10 ? "grey" : schemePaired[$selectedChar]}
@@ -25,10 +29,12 @@
           font-weight="bold"
           >{headlineOutput[1]}
         </tspan>
-        <tspan style="font-weight:bold;">{headlineOutput[2]} times</tspan>
-      {:else}<tspan font-style="italic" fill="grey"
+        <tspan style="font-weight:bold;">{headlineOutput[2]} times</tspan></text
+      >
+    {:else}<text x="0" y="15" font-size="16"
+        ><tspan font-style="italic" fill="grey"
           >Hover/select a character to see relationships</tspan
-        >{/if}
-    </text></g
-  >
+        ></text
+      >{/if}
+  </g>
 {/key}
