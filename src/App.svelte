@@ -2,7 +2,6 @@
   import { schemePaired } from "d3"; //shows as not used, see <style>
   import PosNegChart from "./components/PosNegChart.svelte";
   import CatCountChart from "./components/CatCountChart.svelte";
-  import { fullText } from "./utils/data";
   import ForceChart from "./components/ForceChart.svelte";
   import marker from "./utils/mark";
 

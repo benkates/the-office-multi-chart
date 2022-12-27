@@ -32,14 +32,14 @@
   };
 
   import { tweened } from "svelte/motion";
+  import { characters } from "../data/characters";
 
   import clickFun from "../utils/clickFun";
   import Tooltip from "../utils/Tooltip.svelte";
   import { selectedCat } from "../utils/stores";
 
   import marker from "../utils/mark";
-
-  import { fade } from "svelte/transition";
+  import ForceChartHeadline from "./ForceChartHeadline.svelte";
 
   export let networkData;
   export let catData;
@@ -53,24 +53,12 @@
   let transform = d3.zoomIdentity;
   let simulation;
 
-  let chars = [
-    "Michael",
-    "Dwight",
-    "Jim",
-    "Andy",
-    "Pam",
-    "Angela",
-    "Kevin",
-    "Erin",
-    "Ryan",
-    "Oscar",
-    "Darryl",
-    "Kelly",
-  ];
-
+  // create headline text/output
   $: headline =
     $selectedCat >= 0 && $selectedCat !== null
-      ? networkData.links.filter((d) => d.source.id === chars[$selectedCat])[0]
+      ? networkData.links.filter(
+          (d) => d.source.id === characters[$selectedCat]
+        )[0]
       : null;
 
   $: headlineOutput = headline
@@ -119,29 +107,7 @@
   <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="3" {isHovered} />
   <!-- svg -->
   <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
-    {#key headlineOutput}
-      <g id="headline" transition:fade={{ duration: 500 }}>
-        <text x="5" y="15">
-          {#if headlineOutput}
-            <tspan
-              fill={$selectedCat === 10 ? "grey" : schemePaired[$selectedCat]}
-              text-decoration="underline"
-              font-weight="bold">{headlineOutput[0]}</tspan
-            >
-            <tspan> has said the name </tspan>
-            <tspan
-              fill={schemePaired[chars.indexOf(headlineOutput[1])]}
-              text-decoration="underline"
-              font-weight="bold"
-              >{headlineOutput[1]}
-            </tspan>
-            <tspan style="font-weight:bold;">{headlineOutput[2]} times</tspan>
-          {:else}<tspan font-style="italic"
-              >Hover/select a character to see relationships</tspan
-            >{/if}
-        </text></g
-      >
-    {/key}
+    <ForceChartHeadline {headlineOutput} {selectedCat} />
     {#each links as link, i}
       <g stroke="#999" stroke-opacity="0.75">
         <!-- line including animated opacity -->
