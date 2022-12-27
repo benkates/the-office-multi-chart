@@ -32,11 +32,10 @@
 
   import { selectedTranscript } from "./utils/stores";
   import { scripts } from "./data/scripts";
-  console.log(scripts);
 
   let style = schemePaired
     .map((e, i) => {
-      return `.group-${i} {background-color: ${e}99;border-radius: 2px;}`;
+      return `.group-${i} {background-color: ${e}99;border-radius: 2px;font-weight:bold;padding:.1875em;}`;
     })
     .join(" ");
 
@@ -129,10 +128,10 @@
               Select a <strong>character from the dropdown</strong> to view the
               episode in which they <strong>speak the most</strong><br />
               <Row style="padding-top:5px"
-                ><Col xs="8" lg="6">
+                ><Col xs="8" lg="4">
                   <CharSelect />
                 </Col>
-                <Col xs="4" lg="6" style="padding-top:4px">
+                <Col xs="4" lg="8" style="padding-top:4px">
                   <TextResetButton {marker} /></Col
                 ></Row
               >
