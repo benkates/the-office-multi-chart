@@ -6,7 +6,6 @@ Proof of concept multi-chart data tool using The Office data. Visualizations bas
 
 ## TODO
 
-- [ ] comment some more
 - [ ] rename repo
 
 ## Backburner
@@ -20,6 +19,7 @@ Proof of concept multi-chart data tool using The Office data. Visualizations bas
 
 ## Completed
 
+- [x] comment some more
 - [x] GA
 - [x] highlight the entire paragraph (`acrossElements` flag is not working in `mark.js`) - solve was to remove use of `^` character as it was causing issues
 - [x] character below nodes

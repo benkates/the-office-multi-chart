@@ -142,9 +142,7 @@
           fill={colourScale(point.group)}
           cx={point.x}
           cy={point.y}
-          opacity={() => {
-            1; //$selectedChar === null ? 1 : $selectedChar === i ? 1 : 0.55}
-          }}
+          opacity="1"
           tabIndex="0"
           on:click={(d) => {
             highlightFun(d, i, marker);
