@@ -1,8 +1,8 @@
 # Multi-Chart Svelte Example
 
-![Preview image](public/preview.png)
-
 Proof of concept multi-chart data tool using The Office data. Visualizations based on [this Observable notebook](https://observablehq.com/d/c5955832413ea211)
+
+![Preview image](public/preview.png)
 
 ## TODO
 
