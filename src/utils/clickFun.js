@@ -5,9 +5,11 @@ export default function clickFun(d, i, marker) {
     return;
   }
 
-  let keyword = charData[i].name;
+  let keyword = `^${charData[i].name}.*`;
+  let reg = new RegExp(keyword);
+  console.log(reg);
 
-  marker.mark(keyword, {
+  marker.markRegExp(reg, {
     className: `group-${i}`,
     accuracy: "exactly",
   });

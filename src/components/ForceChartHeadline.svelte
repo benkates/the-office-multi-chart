@@ -1,12 +1,12 @@
 <script>
   export let headline;
   export let selectedChar;
+  export let charData;
 
   $: headlineOutput = headline
     ? [headline.source.id, headline.target.id, headline.value]
     : null;
 
-  import { characters } from "../data/characters";
   import { fade } from "svelte/transition";
   import { schemePaired } from "d3";
 </script>
@@ -24,7 +24,9 @@
         >
         <tspan> has said the name </tspan>
         <tspan
-          fill={schemePaired[characters.indexOf(headlineOutput[1])]}
+          fill={schemePaired[
+            charData.findIndex((d) => d.name === headlineOutput[1])
+          ]}
           text-decoration="underline"
           font-weight="bold"
           >{headlineOutput[1]}

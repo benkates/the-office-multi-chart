@@ -4,6 +4,11 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 ## TODO
 
+- [ ] Xaxis too close on small screen
+- [ ] Tooltip add semantics bc you haven’t seen posneg yet on mobile
+- [ ] on input change for transcript, highlight the name
+- [ ] highlight the entire paragraph
+- [ ] character below nodes
 - [ ] comment some more
 - [ ] lower opacity just a touch globally
 - [ ] semantic html?

@@ -1,12 +1,20 @@
 <script>
-  import nodes from "../data/nodes.json";
+  import charData from "../data/nodes.json";
   import { selectedTranscript } from "./stores";
   import { FormGroup, Input } from "sveltestrap";
   import { afterUpdate } from "svelte";
 
-  //after the character changes, scroll to the top of the div
+  export let marker;
+
+  //after the character changes, highlight + scroll to the top of the div
   afterUpdate(() => {
     document.getElementById("text-container").scrollTop = 0;
+    let i = charData.findIndex((d) => d.name === $selectedTranscript);
+
+    marker.mark($selectedTranscript, {
+      className: `group-${i}`,
+      accuracy: "exactly",
+    });
   });
 </script>
 
@@ -17,8 +25,8 @@
     id="charSelect"
     bind:value={$selectedTranscript}
   >
-    {#each nodes as node}
-      <option>{node.name}</option>
+    {#each charData as char}
+      <option>{char.name}</option>
     {/each}
   </Input>
 </FormGroup>

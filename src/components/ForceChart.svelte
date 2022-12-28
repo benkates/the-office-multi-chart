@@ -32,7 +32,6 @@
   };
 
   import { tweened } from "svelte/motion";
-  import { characters } from "../data/characters";
 
   import clickFun from "../utils/clickFun";
   import Tooltip from "../utils/Tooltip.svelte";
@@ -58,7 +57,7 @@
   $: headline =
     $selectedChar >= 0 && $selectedChar !== null
       ? networkData.links.filter(
-          (d) => d.source.id === characters[$selectedChar]
+          (d) => d.source.id === charData[$selectedChar].name
         )[0]
       : null;
 
@@ -173,7 +172,7 @@
         />
       {/each}
     </g>
-    <ForceChartHeadline {headline} {selectedChar} />
+    <ForceChartHeadline {headline} {selectedChar} {charData} />
   </svg>
 </div>
 

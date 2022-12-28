@@ -32,6 +32,7 @@
 
   import { selectedTranscript } from "./utils/stores";
   import { scripts } from "./data/scripts";
+  import { beforeUpdate } from "svelte";
 
   let style = schemePaired
     .map((e, i) => {
@@ -41,6 +42,15 @@
 
   let width = "400";
   let height = "400";
+
+  beforeUpdate(() => {
+    let i = charData.indexOf($selectedTranscript);
+
+    marker.mark($selectedTranscript, {
+      className: `group-${i}`,
+      accuracy: "exactly",
+    });
+  });
 </script>
 
 <main>
@@ -148,7 +158,7 @@
               episode in which they <strong>speak the most</strong><br />
               <Row style="padding-top:5px;"
                 ><Col md="8" lg="3">
-                  <CharSelect />
+                  <CharSelect {marker} />
                 </Col>
                 <Col md="4" lg="9" style="padding-top:4px">
                   <TextResetButton {marker} /></Col
