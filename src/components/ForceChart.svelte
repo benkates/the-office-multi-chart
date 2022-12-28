@@ -1,5 +1,5 @@
 <!--
-  a lot of this code has been adapted from Mark Hughes (@happybeing) - cheers to you!
+  the basis of this code has been adapted from Mark Hughes (@happybeing) - cheers to you!
 
   https://github.com/happybeing/d3-fdg-svelte/blob/master/src/NetworkGraphSvelteSVG.svelte 
 -->
@@ -170,6 +170,7 @@
           }}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         />
+        <!-- inner text of character name -->
         <text
           x={point.x}
           y={point.y}
@@ -188,9 +189,10 @@
         >
       {/each}
     </g>
+    <!-- headline text, putting after elements for z-index -->
     <ForceChartHeadline {headline} {selectedChar} {charData} />
   </svg>
-  <!-- tooltip -->
+  <!-- tooltip, putting after elements for z-index -->
   <Tooltip
     bind:this={tooltip}
     data={hoveredData}

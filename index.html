@@ -19,7 +19,6 @@
       content="The Office Multi-Chart (in Svelte!)"
     />
     <meta
-      name="description"
       property="og:description"
       content="This is a proof of concept multi-chart tool using The Office TV show transcripts. Hover on chart elements to toggle prominence across charts."
     />
@@ -50,7 +49,7 @@
     <meta
       name="url"
       property="og:url"
-      content="http://www.benkates.com/apps//the-office-multi-chart"
+      content="http://www.benkates.com/apps/the-office-multi-chart/"
     />
 
     <meta property="og:type" content="article" />
@@ -60,6 +59,23 @@
     <meta name="twitter:data1" content="Ben Kates" />
     <meta name="twitter:label2" content="Reading time" />
     <meta name="twitter:data2" content="6 minutes" />
+
+    <script
+      async=""
+      src="//www.googletagmanager.com/gtag/js?id=G-C7NND5KV6S"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-C7NND5KV6S", {
+        send_page_view: false,
+        anonymize_ip: true,
+      });
+      gtag("config", "G-C7NND5KV6S", { page_path: "/" });
+    </script>
   </head>
   <body>
     <div id="app"></div>

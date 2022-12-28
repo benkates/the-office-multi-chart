@@ -1,14 +1,17 @@
 # Multi-Chart Svelte Example
 
-Proof of concept multi-chart data tool using randomly generated data. Based on [this Observable notebook](https://observablehq.com/d/c5955832413ea211)
+![Preview image](preview.png)
+
+Proof of concept multi-chart data tool using The Office data. Visualizations based on [this Observable notebook](https://observablehq.com/d/c5955832413ea211)
 
 ## TODO
 
 - [ ] comment some more
-- [ ] opengraph
+- [ ] rename repo
 
 ## Backburner
 
+- [ ] dynamic import where scripts are html/md files stored in `public/`
 - [ ] can the tooltip contain a store? tooltip.hoveredData could be scoped to just that tooltip
   - [ ] backup would just be a global variable and the same as the selectedChar;
 - [ ] GH CI/CD - build/deploy in the cloud on push (is it expensive?)
@@ -17,6 +20,7 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 ## Completed
 
+- [x] GA
 - [x] highlight the entire paragraph (`acrossElements` flag is not working in `mark.js`) - solve was to remove use of `^` character as it was causing issues
 - [x] character below nodes
 - [x] Tooltip add semantics bc you haven’t seen posneg yet on mobile

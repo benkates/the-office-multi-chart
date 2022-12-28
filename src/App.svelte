@@ -34,6 +34,7 @@
   import { scripts } from "./data/scripts";
   import { beforeUpdate } from "svelte";
 
+  // define color scheme for highlights
   let style = schemePaired
     .map((e, i) => {
       return `.group-${i} {background-color: ${e}99;padding:.1em 0;}`;
@@ -46,7 +47,6 @@
 
 <Container>
   <header>
-    <!-- header -->
     <h1 style="padding-top:10px">
       <img
         src="the-office-logo.png"
@@ -72,6 +72,7 @@
     <section>
       <!-- character, CharCountChart -->
       <Row noGutters={false} class="gy-3">
+        <!-- CharCountChart -->
         <Col xs="12" lg="6">
           <Card>
             <CardHeader
@@ -128,8 +129,6 @@
     <br />
     <section>
       <Row noGutters={false} class="gy-3 justify-content-center">
-        <!-- force, ForceChart -->
-
         <Col xs="12" lg="8">
           <Card>
             <CardHeader>
@@ -169,7 +168,6 @@
               </CardTitle>
             </CardHeader>
             <CardBody id="text-container" style="height:400px;overflow-y:auto;">
-              <!-- <OnMountComp> -->
               <div transition:fade={{ duration: 1250 }}>
                 <h2>
                   {@html scripts.filter(
@@ -179,9 +177,8 @@
                 {@html scripts.filter(
                   (d) => d.character === $selectedTranscript
                 )[0].text}
-                <div id="fade" />
+                <div class="div-fade" />
               </div>
-              <!-- </OnMountComp> -->
             </CardBody>
           </Card>
         </Col>
@@ -191,7 +188,7 @@
   <br />
   <footer>
     <p style="text-align:center; font-style:italic;">
-      Data cleaning/prep completed in R. Find the code on <a
+      Data cleaning/prep completed in R. Find the app code on <a
         href="https://github.com/benkates/multi-chart-svelte"
         target="_blank"
         rel="noreferrer">GitHub here</a
@@ -212,7 +209,7 @@
     border-radius:4px;
     font-weight:bold;
   }
-  #fade {
+  .div-fade {
     position: absolute;
     bottom: 0px;
 

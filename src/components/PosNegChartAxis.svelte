@@ -15,6 +15,7 @@
 </script>
 
 <g id="axes">
+  <!-- x axis -->
   <g id="axis-x" transform="translate(0, {height - margin.bottom})">
     {#each xTicks as tick}
       <g
@@ -29,6 +30,7 @@
       </g>
     {/each}
   </g>
+  <!-- y axis -->
   <g id="axis-y" transform="translate(-5, 0)">
     {#each yTicks as tick}
       <g
