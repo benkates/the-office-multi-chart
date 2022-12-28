@@ -6,8 +6,6 @@ Proof of concept multi-chart data tool using The Office data. Visualizations bas
 
 ## TODO
 
-- [ ] rename repo
-
 ## Backburner
 
 - [ ] translate doesn't work on iphone for axis labels
@@ -20,6 +18,7 @@ Proof of concept multi-chart data tool using The Office data. Visualizations bas
 
 ## Completed
 
+- [x] rename repo
 - [x] comment some more
 - [x] GA
 - [x] highlight the entire paragraph (`acrossElements` flag is not working in `mark.js`) - solve was to remove use of `^` character as it was causing issues
