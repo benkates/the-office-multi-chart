@@ -8,6 +8,7 @@
   export let y;
   export let id;
   export let isHovered;
+  export let float = true;
 
   //export relevant mouse functions
   export function mouseOver(e, i) {
@@ -30,7 +31,7 @@
   <!-- if data and hover flag, show tooltip -->
   <div
     id="tooltip{id}"
-    style="top: {y}px; left: {x}px;"
+    style="top: {float ? y : 30}px; left: {float ? x : 0}px;"
     transition:fly={{ y: 50, duration: 250 }}
   >
     <span><strong>{data.name}</strong></span>
