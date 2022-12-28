@@ -24,7 +24,9 @@
         font-size="12px"
       >
         <line stroke="lightgrey" y2={-height} />
-        <text fill="grey" dy="5" text-anchor="middle">{format(",")(tick)}</text>
+        <text fill="grey" dy="5" text-anchor="middle" transform="translate(0,5)"
+          >{format(",")(tick)}</text
+        >
       </g>
     {/each}
   </g>
@@ -37,7 +39,9 @@
         font-size="14px"
       >
         <line stroke="lightgrey" x2={width} />
-        <text fill="grey" text-anchor="end" dx="-2">{tick}</text>
+        <text fill="grey" text-anchor="end" dx="-2" transform="translate(-5,0)"
+          >{tick}</text
+        >
       </g>
     {/each}
   </g>

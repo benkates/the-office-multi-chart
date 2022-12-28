@@ -43,13 +43,9 @@
   let width = "400";
   let height = "400";
 
-  beforeUpdate(() => {
-    let i = charData.indexOf($selectedTranscript);
-
-    marker.mark($selectedTranscript, {
-      className: `group-${i}`,
-      accuracy: "exactly",
-    });
+  marker.mark("Michael", {
+    className: `group-0`,
+    accuracy: "e",
   });
 </script>
 
@@ -167,19 +163,19 @@
             </CardTitle>
           </CardHeader>
           <CardBody id="text-container" style="height:400px;overflow-y:auto;">
-            <OnMountComp>
-              <div transition:fade={{ duration: 1250 }}>
-                <h2>
-                  {@html scripts.filter(
-                    (d) => d.character === $selectedTranscript
-                  )[0].episode}
-                </h2>
+            <!-- <OnMountComp> -->
+            <div transition:fade={{ duration: 1250 }}>
+              <h2>
                 {@html scripts.filter(
                   (d) => d.character === $selectedTranscript
-                )[0].text}
-                <div id="fade" />
-              </div>
-            </OnMountComp>
+                )[0].episode}
+              </h2>
+              {@html scripts.filter(
+                (d) => d.character === $selectedTranscript
+              )[0].text}
+              <div id="fade" />
+            </div>
+            <!-- </OnMountComp> -->
           </CardBody>
         </Card>
       </Col></Row

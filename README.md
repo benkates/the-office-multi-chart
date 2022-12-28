@@ -4,11 +4,6 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 ## TODO
 
-- [ ] Xaxis too close on small screen
-- [ ] Tooltip add semantics bc you haven’t seen posneg yet on mobile
-- [ ] on input change for transcript, highlight the name
-- [ ] highlight the entire paragraph
-- [ ] character below nodes
 - [ ] comment some more
 - [ ] lower opacity just a touch globally
 - [ ] semantic html?
@@ -18,6 +13,7 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 ## Backburner
 
+- [ ] highlight the entire paragraph (`acrossElements` flag is not working in `mark.js`)
 - [ ] can the tooltip contain a store? tooltip.hoveredData could be scoped to just that tooltip
   - [ ] backup would just be a global variable and the same as the selectedChar;
 - [ ] GH CI/CD - build/deploy in the cloud on push (is it expensive?)
@@ -26,6 +22,11 @@ Proof of concept multi-chart data tool using randomly generated data. Based on [
 
 ## Completed
 
+- [x] character below nodes
+- [x] Tooltip add semantics bc you haven’t seen posneg yet on mobile
+- [x] Xaxis too close on small screen
+- [x] tooltip for network should be static in top left
+- [x] on input change for transcript, highlight the name
 - [x] put dropdown and button side-by-side
 - [x] button to reset highlighting
 - [x] check out multi-hover (hover on one, another chart lights up)

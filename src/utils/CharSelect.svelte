@@ -11,7 +11,9 @@
     document.getElementById("text-container").scrollTop = 0;
     let i = charData.findIndex((d) => d.name === $selectedTranscript);
 
-    marker.mark($selectedTranscript, {
+    let keyword = `^${$selectedTranscript}.*`;
+
+    marker.markRegExp(RegExp(keyword, "i"), {
       className: `group-${i}`,
       accuracy: "exactly",
     });

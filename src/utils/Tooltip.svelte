@@ -37,10 +37,10 @@
     <span><strong>{data.name}</strong></span>
     <br />
     <span>Ttl Word Count: {format(",")(data.count)}</span>
+    <hr style="margin:3px 0;" />
+    <span>Negative Word%: {format(".01%")(data.neg * -1)}</span>
     <br />
-    <span>Negative: {format(".01%")(data.neg)}</span>
-    <br />
-    <span>Positive: {format(".01%")(data.pos)}</span>
+    <span>Positive Word%: {format(".01%")(data.pos)}</span>
   </div>
 {/if}
 

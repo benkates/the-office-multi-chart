@@ -45,7 +45,7 @@
   let svg;
   let width = 500;
   let height = 400;
-  const nodeRadius = 20;
+  const nodeRadius = 25;
   const strength = -350;
   $: links = networkData.links;
   $: nodes = networkData.nodes;
@@ -99,8 +99,6 @@
 </script>
 
 <div bind:clientWidth={width}>
-  <!-- tooltip -->
-  <Tooltip bind:this={tooltip} data={hoveredData} {x} {y} id="3" {isHovered} />
   <!-- svg -->
   <svg bind:this={svg} {width} {height} opacity={1 * $tweenedVal}>
     {#each links as link, i}
@@ -129,7 +127,7 @@
       </g>
     {/each}
 
-    <g>
+    <g id="nodes">
       {#each nodes as point, i}
         <!-- circle including animated features -->
         <circle
@@ -144,7 +142,9 @@
           fill={colourScale(point.group)}
           cx={point.x}
           cy={point.y}
-          opacity={$selectedChar === null ? 1 : $selectedChar === i ? 1 : 0.55}
+          opacity={() => {
+            1; //$selectedChar === null ? 1 : $selectedChar === i ? 1 : 0.55}
+          }}
           tabIndex="0"
           on:click={(d) => {
             clickFun(d, i, marker);
@@ -170,17 +170,52 @@
           }}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         />
+        <text
+          x={point.x}
+          y={point.y}
+          text-anchor="middle"
+          fill={[1, 5, 9, 11].includes(i) ? "lightgrey" : "black"}
+          font-size={$selectedChar === null
+            ? 11
+            : $selectedChar === i
+            ? 16
+            : 11}
+          transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
+          dy=".3em"
+          focusable="false"
+          opacity={$selectedChar === null ? 1 : $selectedChar === i ? 1 : 0.85}
+          >{point.name.length > 4 ? point.name.slice(0, 3) : point.name}</text
+        >
       {/each}
     </g>
     <ForceChartHeadline {headline} {selectedChar} {charData} />
   </svg>
+  <!-- tooltip -->
+  <Tooltip
+    bind:this={tooltip}
+    data={hoveredData}
+    {x}
+    {y}
+    id="3"
+    {isHovered}
+    float={false}
+  />
 </div>
 
 <style>
   svg {
     float: left;
   }
-  circle {
+  #nodes text {
+    transition: opacity 500ms ease, font-size 500ms ease;
+    pointer-events: none;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  #nodes circle {
     cursor: pointer;
     transition: opacity 500ms ease, r 500ms ease;
   }
