@@ -8,5 +8,5 @@
 </script>
 
 <Button color="secondary" size="sm" outline on:click={resetMarker}
-  >Reset Highlight</Button
+  >Clear Highlight</Button
 >

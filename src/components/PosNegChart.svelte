@@ -3,7 +3,7 @@
   import PosNegChartAxis from "./PosNegChartAxis.svelte";
   import Tooltip from "../utils/Tooltip.svelte";
   import marginFun from "../utils/margin";
-  import clickFun from "../utils/clickFun";
+  import highlightFun from "../utils/highlightFun";
   import OnMountComp from "../utils/OnMountComp.svelte";
   import marker from "../utils/mark";
   import { selectedChar } from "../utils/stores";
@@ -92,7 +92,7 @@
               ? 1
               : hoveredData === d || $selectedChar === i
               ? 1
-              : 0.55}
+              : 0.45}
             on:focus={(e) => {
               tooltip.mouseOver(e, i);
               hoveredData = d;
@@ -110,9 +110,9 @@
               tooltip.mouseLeave(e);
               hoveredData = null;
             }}
-            on:keydown={(e) => clickFun(e, i, marker)}
+            on:keydown={(e) => highlightFun(e, i, marker)}
             on:click={(e) => {
-              clickFun(e, i, marker);
+              highlightFun(e, i, marker);
             }}
           />
         {/each}
@@ -130,7 +130,7 @@
               ? 1
               : hoveredData === d || $selectedChar === i
               ? 1
-              : 0.55}
+              : 0.45}
             data-value={i}
             on:focus={(e) => {
               tooltip.mouseOver(e, i);
@@ -149,8 +149,8 @@
               tooltip.mouseLeave(e);
               hoveredData = null;
             }}
-            on:keydown={(e) => clickFun(e, i, marker)}
-            on:click={(e) => clickFun(e, i, marker)}
+            on:keydown={(e) => highlightFun(e, i, marker)}
+            on:click={(e) => highlightFun(e, i, marker)}
           />
         {/each}
       </g>

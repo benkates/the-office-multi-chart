@@ -3,6 +3,7 @@
   import { selectedTranscript } from "./stores";
   import { FormGroup, Input } from "sveltestrap";
   import { afterUpdate } from "svelte";
+  import highlightFun from "./highlightFun";
 
   export let marker;
 
@@ -11,12 +12,7 @@
     document.getElementById("text-container").scrollTop = 0;
     let i = charData.findIndex((d) => d.name === $selectedTranscript);
 
-    let keyword = `^${$selectedTranscript}.*`;
-
-    marker.markRegExp(RegExp(keyword, "i"), {
-      className: `group-${i}`,
-      accuracy: "exactly",
-    });
+    highlightFun("", i, marker);
   });
 </script>
 

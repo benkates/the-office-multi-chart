@@ -10198,7 +10198,7 @@ export let scripts = [
   },
   {
     character: "Ryan",
-    episode: "Episodes 3/4: Dunder Mifflin Infinity",
+    episode: "Season 4, Episodes 3/4: Dunder Mifflin Infinity",
     text: `<div class="content"><strong class="text-strong">Pam</strong>: Hey.<br>
   <br>
   <strong class="text-strong">Jim</strong>: Hey.<br>

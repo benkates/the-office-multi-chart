@@ -33,7 +33,7 @@
 
   import { tweened } from "svelte/motion";
 
-  import clickFun from "../utils/clickFun";
+  import highlightFun from "../utils/highlightFun";
   import Tooltip from "../utils/Tooltip.svelte";
   import { selectedChar } from "../utils/stores";
 
@@ -147,10 +147,10 @@
           }}
           tabIndex="0"
           on:click={(d) => {
-            clickFun(d, i, marker);
+            highlightFun(d, i, marker);
           }}
           on:keydown={(d) => {
-            clickFun(d, i, marker);
+            highlightFun(d, i, marker);
           }}
           on:mouseover={(e) => {
             tooltip.mouseOver(e, i);
