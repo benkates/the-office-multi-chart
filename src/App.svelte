@@ -182,7 +182,7 @@
     >
     <br />
     <p style="text-align:center; font-style:italic;">
-      Find the code on <a
+      Data cleaning/prep completed in R. Find the code on <a
         href="https://github.com/benkates/multi-chart-svelte"
         target="_blank"
         rel="noreferrer">GitHub here</a
