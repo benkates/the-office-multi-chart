@@ -10,6 +10,7 @@ Proof of concept multi-chart data tool using The Office data. Visualizations bas
 
 ## Backburner
 
+- [ ] translate doesn't work on iphone for axis labels
 - [ ] dynamic import where scripts are html/md files stored in `public/`
 - [ ] can the tooltip contain a store? tooltip.hoveredData could be scoped to just that tooltip
   - [ ] backup would just be a global variable and the same as the selectedChar;
