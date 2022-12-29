@@ -45,8 +45,8 @@
   let svg;
   let width = 500;
   let height = 400;
-  const nodeRadius = 25;
-  const strength = -350;
+  const nodeRadius = 30;
+  const strength = -400;
   $: links = networkData.links;
   $: nodes = networkData.nodes;
   const colourScale = d3.scaleOrdinal(d3.schemePaired);
@@ -119,7 +119,7 @@
                         : $selectedChar === link.source.index
                         ? 2.5
                       : 1.5*/
-          link.value / 25}
+          link.value / 20}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
         >
           <title>{link.source.id}</title>
@@ -175,15 +175,15 @@
           text-anchor="middle"
           fill={[1, 5, 9, 11].includes(i) ? "lightgrey" : "black"}
           font-size={$selectedChar === null
-            ? 11
+            ? 12
             : $selectedChar === i
-            ? 16
-            : 11}
+            ? 17
+            : 12}
           transform="translate({transform.x} {transform.y}) scale({transform.k} {transform.k})"
           dy=".3em"
           focusable="false"
           opacity={$selectedChar === null ? 1 : $selectedChar === i ? 1 : 0.85}
-          >{point.name.length > 4 ? point.name.slice(0, 3) : point.name}</text
+          >{point.name.length > 5 ? point.name.slice(0, 3) : point.name}</text
         >
       {/each}
     </g>

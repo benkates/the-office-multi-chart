@@ -56,7 +56,7 @@
       />
       Multi-Chart (in Svelte!)
     </h1>
-    <p style="font-style:italic;">by Ben Kates / Dec 2022</p>
+    <p style="font-style:italic;">by <a href="/">Ben Kates</a> / Dec 2022</p>
     <p style="font-style:italic;">
       This is a proof of concept multi-chart tool using <a
         href="https://data.world/abhinavr8/the-office-scripts-dataset"
@@ -64,7 +64,7 @@
         rel="noreferrer">The Office TV show transcripts</a
       >. Hover on chart elements to toggle prominence across charts.
       <br /><strong
-        >Click on a character to highlight their name in the transcript!</strong
+        >Click on a character to highlight their lines in the transcript!</strong
       >
     </p>
   </header>
