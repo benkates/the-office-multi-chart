@@ -161,10 +161,10 @@
                   ><Col md="8" lg="3">
                     <CharSelect {marker} />
                   </Col>
-                  <Col md="4" lg="9" style="padding-top:4px">
+                  <!-- <Col md="4" lg="9" style="padding-top:4px">
                     <TextResetButton {marker} /></Col
-                  ></Row
-                >
+                  ></Row -->
+                </Row>
               </CardTitle>
             </CardHeader>
             <CardBody id="text-container" style="height:400px;overflow-y:auto;">
